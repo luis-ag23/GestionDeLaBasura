@@ -1,0 +1,25 @@
+{
+  "name": "parcelbase",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/juansoruconombremisterioso/tarea2#readme",
+  "bugs": {
+    "url": "https://github.com/juansoruconombremisterioso/tarea2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juansoruconombremisterioso/tarea2.git"
+  },
+  "license": "ISC",
+  "author": "Juan Mateo Soruco",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
