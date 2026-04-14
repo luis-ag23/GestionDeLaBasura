@@ -1,6 +1,86 @@
-<html>
-  <body>
-    <h1>Bienvenido a Ingeniería de Software</h1>
-    <script src="./src/index.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <header>
+    <h1>Sistema de Gestión de Basura</h1>
+    <p>Registro y seguimiento de reportes de residuos</p>
+  </header>
+  <main>
+    <section>
+      <h2>Reportes</h2>
+      <button type="button">Añadir Reporte</button>
+    </section>
+
+    <section>
+      <h2>Nuevo Reporte</h2>
+      <form>
+        <div>
+          <label for="descripcion">Descripción:</label><br>
+          <textarea id="descripcion" name="descripcion" rows="4" cols="50" placeholder="Describe el problema"></textarea>
+        </div><br>
+
+        <div>
+          <label for="ubicacion">Ubicación:</label><br>
+          <input type="text" id="ubicacion" name="ubicacion" placeholder="Ingresa la ubicación">
+        </div><br>
+
+        <div>
+          <label for="fecha">Fecha:</label><br>
+          <input type="date" id="fecha" name="fecha">
+        </div><br>
+
+        <div>
+          <label for="estado">Estado:</label><br>
+          <select id="estado" name="estado">
+            <option value="">Seleccione un estado</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="en_proceso">En proceso</option>
+            <option value="resuelto">Resuelto</option>
+          </select>
+        </div><br>
+
+        <div>
+          <label for="foto">Foto:</label><br>
+          <input type="file" id="foto" name="foto" accept="image/*">
+        </div><br>
+        <button type="submit">Guardar Reporte</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Lista de Reportes</h2>
+      <table border="1" cellpadding="8">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Ubicación</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Foto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Basura acumulada en la esquina</td>
+            <td>Av. Principal #123</td>
+            <td>2026-04-13</td>
+            <td>Pendiente</td>
+            <td>foto1.jpg</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer>
+    <p>© 2026 Sistema de Gestión de Basura</p>
+  </footer>
+  <script src="./src/index.js"></script>
   </body>
 </html>
