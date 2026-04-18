@@ -10,7 +10,7 @@ function formatearTipo(tipoServicio) {
   return "Domiciliario";
 }
 
-function formatearHorario(horario) {
+function formatearHorario(horario, diaActual) {
   return {
     codigo: horario.codigo,
     titulo: horario.nombre_distrito,
@@ -20,7 +20,8 @@ function formatearHorario(horario) {
     tipoLabel: formatearTipo(horario.tipo_servicio),
     dias: horario.dias,
     nota: horario.nota,
-    color: horario.color
+    color: horario.color,
+    pasaHoy: diaActual ? pasaHoy(horario.dias, diaActual) : false
   };
 }
 function formatearHorarios(horarios) {
