@@ -21,4 +21,18 @@ describe("horarios.controller", () => {
     expect(resultado).toEqual(horariosFormateadosMock);
     expect(horariosService.obtenerHorariosFormateados).toHaveBeenCalledTimes(1);
   });
+  test("debería cargar un horario formateado por código para el home", async () => {
+  const horarioFormateadoMock = {
+    codigo: "d2",
+    titulo: "Distrito 2",
+    pasaHoy: false
+  };
+
+  horariosService.obtenerHorarioFormateadoPorCodigo.mockResolvedValue(horarioFormateadoMock);
+
+  const resultado = await cargarHorarioPorCodigoParaHome("d2");
+
+  expect(resultado).toEqual(horarioFormateadoMock);
+  expect(horariosService.obtenerHorarioFormateadoPorCodigo).toHaveBeenCalledWith("d2");
+});
 });
