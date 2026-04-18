@@ -30,8 +30,12 @@ function formatearHorarios(horarios) {
 function construirHorarioTexto(horaInicio, horaFin) {
   return `${formatearHora(horaInicio)} - ${formatearHora(horaFin)}`;
 }
+function pasaHoy(dias, diaActual) {
+  return dias.includes(diaActual);
+}
 module.exports = {
   formatearHorario,
   formatearHorarios,
-  construirHorarioTexto
+  construirHorarioTexto,
+  pasaHoy
 };
