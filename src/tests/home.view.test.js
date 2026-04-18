@@ -1,10 +1,12 @@
 /** @jest-environment jsdom */
 
-const horariosController = require("../controllers/horarios.controller");
+const homeView = require("../views/home.view");
+
 const {
   renderizarHorarios,
-  cargarYRenderizarHorarios
-} = require("../views/home.view");
+  cargarYRenderizarHorarios,
+  enlazarFiltroDistrito
+} = homeView;
 
 jest.mock("../controllers/horarios.controller");
 
@@ -38,5 +40,32 @@ describe("home.view", () => {
   const tarjetas = document.querySelectorAll(".zona-card");
   expect(tarjetas.length).toBe(1);
   expect(horariosController.cargarListaParaHome).toHaveBeenCalledWith("");
+});
+test("debería cargar y renderizar horarios cuando cambia el select de distrito", () => {
+  document.body.innerHTML = `
+    <select id="select-distrito">
+      <option value="">Todos</option>
+      <option value="d2">Distrito 2</option>
+    </select>
+    <div id="zonas-grid"></div>
+  `;
+
+  // Espiamos la función
+  const spy = jest
+    .spyOn(homeView, "cargarYRenderizarHorarios")
+    .mockResolvedValue();
+
+  // Ejecutamos la función que enlaza el evento
+  enlazarFiltroDistrito();
+
+  // Simulamos cambio en el select
+  const select = document.getElementById("select-distrito");
+  select.value = "d2";
+  select.dispatchEvent(new Event("change"));
+
+  // Verificamos que se llamó correctamente
+  expect(spy).toHaveBeenCalledWith("d2");
+
+  spy.mockRestore();
 });
 });
