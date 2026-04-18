@@ -4,11 +4,17 @@ const {
   obtenerHorarios,
   obtenerHorarioPorCodigo,
   obtenerHorariosPorDia,
-  obtenerHorariosDeHoy
+  obtenerHorariosDeHoy,
+  obtenerHorariosFormateados
 } = require("../services/horarios.service");
 
 jest.mock("../db/horarios.repository");
 jest.mock("../presenters/horarios.presenter");
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("horarios.service", () => {
   test("debería devolver todos los horarios que entrega el repository", async () => {
     const horariosMock = [
@@ -23,81 +29,85 @@ describe("horarios.service", () => {
     expect(resultado).toEqual(horariosMock);
     expect(horariosRepository.getAllHorarios).toHaveBeenCalledTimes(1);
   });
-});
-test("debería devolver un horario por su código", async () => {
-  const horariosMock = [
-    { codigo: "d1", nombre_distrito: "Distrito 1" },
-    { codigo: "d2", nombre_distrito: "Distrito 2" }
-  ];
 
-  horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
+  test("debería devolver un horario por su código", async () => {
+    const horariosMock = [
+      { codigo: "d1", nombre_distrito: "Distrito 1" },
+      { codigo: "d2", nombre_distrito: "Distrito 2" }
+    ];
 
-  const resultado = await obtenerHorarioPorCodigo("d2");
+    horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
 
-  expect(resultado).toEqual({ codigo: "d2", nombre_distrito: "Distrito 2" });
-});
+    const resultado = await obtenerHorarioPorCodigo("d2");
 
-test("debería devolver undefined si el código no existe", async () => {
-  const horariosMock = [
-    { codigo: "d1", nombre_distrito: "Distrito 1" },
-    { codigo: "d2", nombre_distrito: "Distrito 2" }
-  ];
+    expect(resultado).toEqual({ codigo: "d2", nombre_distrito: "Distrito 2" });
+  });
 
-  horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
+  test("debería devolver undefined si el código no existe", async () => {
+    const horariosMock = [
+      { codigo: "d1", nombre_distrito: "Distrito 1" },
+      { codigo: "d2", nombre_distrito: "Distrito 2" }
+    ];
 
-  const resultado = await obtenerHorarioPorCodigo("d99");
+    horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
 
-  expect(resultado).toBeUndefined();
-});
-test("debería devolver los horarios que incluyen un día específico", async () => {
-  const horariosMock = [
-    { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
-    { codigo: "d2", nombre_distrito: "Distrito 2", dias: ["Martes", "Jueves", "Sábado"] },
-    { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
-  ];
+    const resultado = await obtenerHorarioPorCodigo("d99");
 
-  horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
+    expect(resultado).toBeUndefined();
+  });
 
-  const resultado = await obtenerHorariosPorDia("Lunes");
+  test("debería devolver los horarios que incluyen un día específico", async () => {
+    const horariosMock = [
+      { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
+      { codigo: "d2", nombre_distrito: "Distrito 2", dias: ["Martes", "Jueves", "Sábado"] },
+      { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
+    ];
 
-  expect(resultado).toEqual([
-    { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
-    { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
-  ]);
-});
-test("debería devolver los horarios del día actual", async () => {
-  const horariosMock = [
-    { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
-    { codigo: "d2", nombre_distrito: "Distrito 2", dias: ["Martes", "Jueves", "Sábado"] },
-    { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
-  ];
+    horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
 
-  horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
+    const resultado = await obtenerHorariosPorDia("Lunes");
 
-  const resultado = await obtenerHorariosDeHoy("Lunes");
+    expect(resultado).toEqual([
+      { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
+      { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
+    ]);
+  });
 
-  expect(resultado).toEqual([
-    { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
-    { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
-  ]);
-});
-test("debería devolver los horarios formateados para la UI", async () => {
-  const horariosMock = [
-    { codigo: "d1", nombre_distrito: "Distrito 1" },
-    { codigo: "d2", nombre_distrito: "Distrito 2" }
-  ];
+  test("debería devolver los horarios del día actual", async () => {
+    const horariosMock = [
+      { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
+      { codigo: "d2", nombre_distrito: "Distrito 2", dias: ["Martes", "Jueves", "Sábado"] },
+      { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
+    ];
 
-  const horariosFormateadosMock = [
-    { codigo: "d1", titulo: "Distrito 1" },
-    { codigo: "d2", titulo: "Distrito 2" }
-  ];
+    horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
 
-  horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
-  horariosPresenter.formatearHorarios.mockReturnValue(horariosFormateadosMock);
+    const resultado = await obtenerHorariosDeHoy("Lunes");
 
-  const resultado = await obtenerHorariosFormateados();
+    expect(resultado).toEqual([
+      { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
+      { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
+    ]);
+  });
 
-  expect(resultado).toEqual(horariosFormateadosMock);
-  expect(horariosRepository.getAllHorarios).toHaveBeenCalledTimes(1);
-  expect(horariosPresenter.formatearHorarios).toHaveBeenCalledWith(horariosMock);
+  test("debería devolver los horarios formateados para la UI", async () => {
+    const horariosMock = [
+      { codigo: "d1", nombre_distrito: "Distrito 1" },
+      { codigo: "d2", nombre_distrito: "Distrito 2" }
+    ];
+
+    const horariosFormateadosMock = [
+      { codigo: "d1", titulo: "Distrito 1" },
+      { codigo: "d2", titulo: "Distrito 2" }
+    ];
+
+    horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
+    horariosPresenter.formatearHorarios.mockReturnValue(horariosFormateadosMock);
+
+    const resultado = await obtenerHorariosFormateados();
+
+    expect(resultado).toEqual(horariosFormateadosMock);
+    expect(horariosRepository.getAllHorarios).toHaveBeenCalledTimes(1);
+    expect(horariosPresenter.formatearHorarios).toHaveBeenCalledWith(horariosMock);
+  });
 });
