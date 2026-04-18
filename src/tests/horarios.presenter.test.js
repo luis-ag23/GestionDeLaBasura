@@ -30,3 +30,21 @@ describe("horarios.presenter", () => {
     });
   });
 });
+test("debería mostrar tipoLabel como Domiciliario cuando el tipo de servicio es domiciliario", () => {
+  const horario = {
+    codigo: "d2",
+    nombre_distrito: "Distrito 2",
+    zona: "Queru Queru / Sarco",
+    turno: "Mañana",
+    hora_inicio: "06:00:00",
+    hora_fin: "14:00:00",
+    dias: ["Lunes", "Miércoles", "Sábado"],
+    tipo_servicio: "domiciliario",
+    nota: "Servicio domiciliario regular.",
+    color: "verde"
+  };
+
+  const resultado = formatearHorario(horario);
+
+  expect(resultado.tipoLabel).toBe("Domiciliario");
+});
