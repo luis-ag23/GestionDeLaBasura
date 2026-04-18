@@ -5,7 +5,8 @@ const {
   obtenerHorarioPorCodigo,
   obtenerHorariosPorDia,
   obtenerHorariosDeHoy,
-  obtenerHorariosFormateados
+  obtenerHorariosFormateados,
+  obtenerHorarioFormateadoPorCodigo
 } = require("../services/horarios.service");
 
 jest.mock("../db/horarios.repository");
@@ -110,4 +111,21 @@ describe("horarios.service", () => {
     expect(horariosRepository.getAllHorarios).toHaveBeenCalledTimes(1);
     expect(horariosPresenter.formatearHorarios).toHaveBeenCalledWith(horariosMock);
   });
+  test("debería devolver un horario formateado por su código", async () => {
+  const horarioMock = { codigo: "d2", nombre_distrito: "Distrito 2" };
+  const horarioFormateadoMock = { codigo: "d2", titulo: "Distrito 2" };
+
+  horariosRepository.getAllHorarios.mockResolvedValue([
+    { codigo: "d1", nombre_distrito: "Distrito 1" },
+    horarioMock
+  ]);
+
+  horariosPresenter.formatearHorario.mockReturnValue(horarioFormateadoMock);
+
+  const resultado = await obtenerHorarioFormateadoPorCodigo("d2");
+
+  expect(resultado).toEqual(horarioFormateadoMock);
+  expect(horariosPresenter.formatearHorario).toHaveBeenCalledWith(horarioMock);
+});
+  
 });
