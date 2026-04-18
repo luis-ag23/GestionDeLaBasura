@@ -1,6 +1,7 @@
 const {
   formatearHorario,
-  formatearHorarios
+  formatearHorarios,
+  construirHorarioTexto
 } = require("../presenters/horarios.presenter");
 
 describe("horarios.presenter", () => {
@@ -106,4 +107,9 @@ test("debería transformar una lista de horarios al formato esperado por la UI",
       color: "verde"
     }
   ]);
+});
+test("debería construir el texto de horario a partir de hora_inicio y hora_fin", () => {
+  const resultado = construirHorarioTexto("06:00:00", "14:00:00");
+
+  expect(resultado).toBe("06:00 - 14:00");
 });
