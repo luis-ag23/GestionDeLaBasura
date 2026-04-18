@@ -1,3 +1,5 @@
+const horariosController = require("../controllers/horarios.controller");
+
 function renderizarTarjeta(horario) {
   return `
     <div class="zona-card">
@@ -12,6 +14,12 @@ function renderizarHorarios(horarios) {
   grid.innerHTML = horarios.map(renderizarTarjeta).join("");
 }
 
+async function cargarYRenderizarHorarios(codigo) {
+  const horarios = await horariosController.cargarListaParaHome(codigo);
+  renderizarHorarios(horarios);
+}
+
 module.exports = {
-  renderizarHorarios
+  renderizarHorarios,
+  cargarYRenderizarHorarios
 };

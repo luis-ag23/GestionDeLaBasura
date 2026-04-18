@@ -19,7 +19,11 @@
     "build": "parcel build index.html",
     "test": "jest"
   },
-  "jest": {},
+  "jest": {
+  "setupFiles": [
+    "<rootDir>/jest.setup.js"
+  ]
+},
   "devDependencies": {
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
