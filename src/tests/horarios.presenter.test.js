@@ -1,6 +1,8 @@
 const {
   formatearHorario,
-  formatearHorarios
+  formatearHorarios,
+  construirHorarioTexto,
+  pasaHoy
 } = require("../presenters/horarios.presenter");
 
 describe("horarios.presenter", () => {
@@ -106,4 +108,24 @@ test("debería transformar una lista de horarios al formato esperado por la UI",
       color: "verde"
     }
   ]);
+});
+test("debería construir el texto de horario a partir de hora_inicio y hora_fin", () => {
+  const resultado = construirHorarioTexto("06:00:00", "14:00:00");
+
+  expect(resultado).toBe("06:00 - 14:00");
+});
+test("debería indicar true si el horario incluye el día actual", () => {
+  const dias = ["Lunes", "Miércoles", "Viernes"];
+
+  const resultado = pasaHoy(dias, "Lunes");
+
+  expect(resultado).toBe(true);
+});
+
+test("debería indicar false si el horario no incluye el día actual", () => {
+  const dias = ["Martes", "Jueves", "Sábado"];
+
+  const resultado = pasaHoy(dias, "Lunes");
+
+  expect(resultado).toBe(false);
 });

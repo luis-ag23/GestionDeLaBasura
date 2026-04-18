@@ -1,5 +1,5 @@
 const horariosRepository = require("../db/horarios.repository");
-
+const horariosPresenter = require("../presenters/horarios.presenter");
 async function obtenerHorarios() {
   const horarios = await horariosRepository.getAllHorarios();
   return horarios;
@@ -16,11 +16,26 @@ async function obtenerHorariosPorDia(dia) {
 async function obtenerHorariosDeHoy(dia) {
   return obtenerHorariosPorDia(dia);
 }
+async function obtenerHorariosFormateados() {
+  const horarios = await horariosRepository.getAllHorarios();
+  return horariosPresenter.formatearHorarios(horarios);
+}
+async function obtenerHorarioFormateadoPorCodigo(codigo) {
+  const horario = await obtenerHorarioPorCodigo(codigo);
 
+  if (!horario) {
+    return undefined;
+  }
+
+  return horariosPresenter.formatearHorario(horario);
+}
 module.exports = {
   obtenerHorarios,
   obtenerHorarioPorCodigo,
   obtenerHorariosPorDia,
-  obtenerHorariosDeHoy
+  obtenerHorariosDeHoy,
+  obtenerHorariosFormateados,
+  obtenerHorarioFormateadoPorCodigo
+  
 };
 
