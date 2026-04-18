@@ -1,5 +1,8 @@
 const horariosService = require("../services/horarios.service");
-const { cargarHorariosParaHome } = require("../controllers/horarios.controller");
+const {
+  cargarHorariosParaHome,
+  cargarHorarioPorCodigoParaHome
+} = require("../controllers/horarios.controller");
 
 jest.mock("../services/horarios.service");
 
