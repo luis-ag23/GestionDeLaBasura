@@ -1,6 +1,12 @@
 /** @jest-environment jsdom */
 
-const { renderizarHorarios } = require("../views/home.view");
+const horariosController = require("../controllers/horarios.controller");
+const {
+  renderizarHorarios,
+  cargarYRenderizarHorarios
+} = require("../views/home.view");
+
+jest.mock("../controllers/horarios.controller");
 
 describe("home.view", () => {
   beforeEach(() => {
@@ -18,4 +24,19 @@ describe("home.view", () => {
     const tarjetas = document.querySelectorAll(".zona-card");
     expect(tarjetas.length).toBe(2);
   });
+  test("debería cargar horarios desde el controller y renderizarlos en el grid", async () => {
+  document.body.innerHTML = '<div id="zonas-grid"></div>';
+
+  const horariosMock = [
+    { codigo: "d1", titulo: "Distrito 1", subtitulo: "Centro Histórico" }
+  ];
+
+  horariosController.cargarListaParaHome.mockResolvedValue(horariosMock);
+
+  await cargarYRenderizarHorarios("");
+
+  const tarjetas = document.querySelectorAll(".zona-card");
+  expect(tarjetas.length).toBe(1);
+  expect(horariosController.cargarListaParaHome).toHaveBeenCalledWith("");
+});
 });
