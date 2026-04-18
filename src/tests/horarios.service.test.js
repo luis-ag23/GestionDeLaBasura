@@ -1,5 +1,9 @@
 const horariosRepository = require("../db/horarios.repository");
-const { obtenerHorarios, obtenerHorarioPorCodigo } = require("../services/horarios.service");
+const {
+  obtenerHorarios,
+  obtenerHorarioPorCodigo,
+  obtenerHorariosPorDia
+} = require("../services/horarios.service");
 
 jest.mock("../db/horarios.repository");
 
@@ -42,4 +46,20 @@ test("debería devolver undefined si el código no existe", async () => {
   const resultado = await obtenerHorarioPorCodigo("d99");
 
   expect(resultado).toBeUndefined();
+});
+test("debería devolver los horarios que incluyen un día específico", async () => {
+  const horariosMock = [
+    { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
+    { codigo: "d2", nombre_distrito: "Distrito 2", dias: ["Martes", "Jueves", "Sábado"] },
+    { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
+  ];
+
+  horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
+
+  const resultado = await obtenerHorariosPorDia("Lunes");
+
+  expect(resultado).toEqual([
+    { codigo: "d1", nombre_distrito: "Distrito 1", dias: ["Lunes", "Miércoles", "Viernes"] },
+    { codigo: "d3", nombre_distrito: "Distrito 3", dias: ["Lunes", "Jueves", "Sábado"] }
+  ]);
 });
