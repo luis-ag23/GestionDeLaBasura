@@ -1,7 +1,8 @@
 const horariosService = require("../services/horarios.service");
 const {
   cargarHorariosParaHome,
-  cargarHorarioPorCodigoParaHome
+  cargarHorarioPorCodigoParaHome,
+  cargarListaParaHome
 } = require("../controllers/horarios.controller");
 
 jest.mock("../services/horarios.service");
@@ -51,5 +52,31 @@ test("debería devolver todos los horarios cuando el código viene vacío", asyn
   expect(resultado).toEqual(horariosFormateadosMock);
   expect(horariosService.obtenerHorariosFormateados).toHaveBeenCalledTimes(1);
   expect(horariosService.obtenerHorarioFormateadoPorCodigo).not.toHaveBeenCalled();
+});
+test("debería devolver una lista con un solo horario cuando se filtra por código", async () => {
+  const horarioFormateadoMock = {
+    codigo: "d2",
+    titulo: "Distrito 2",
+    pasaHoy: false
+  };
+
+  horariosService.obtenerHorarioFormateadoPorCodigo.mockResolvedValue(horarioFormateadoMock);
+
+  const resultado = await cargarListaParaHome("d2");
+
+  expect(resultado).toEqual([horarioFormateadoMock]);
+});
+
+test("debería devolver una lista completa cuando no se envía código", async () => {
+  const horariosFormateadosMock = [
+    { codigo: "d1", titulo: "Distrito 1", pasaHoy: true },
+    { codigo: "d2", titulo: "Distrito 2", pasaHoy: false }
+  ];
+
+  horariosService.obtenerHorariosFormateados.mockResolvedValue(horariosFormateadosMock);
+
+  const resultado = await cargarListaParaHome("");
+
+  expect(resultado).toEqual(horariosFormateadosMock);
 });
 });
