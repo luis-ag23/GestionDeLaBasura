@@ -31,7 +31,8 @@ describe("horarios.presenter", () => {
       tipoLabel: "Contenedor",
       dias: ["Lunes", "Miércoles", "Viernes"],
       nota: "Zona central con contenedores soterrados.",
-      color: "azul"
+      color: "azul",
+      pasaHoy: false
     });
   });
 });
@@ -94,7 +95,8 @@ test("debería transformar una lista de horarios al formato esperado por la UI",
       tipoLabel: "Contenedor",
       dias: ["Lunes", "Miércoles", "Viernes"],
       nota: "Zona central con contenedores soterrados.",
-      color: "azul"
+      color: "azul",
+      pasaHoy: false
     },
     {
       codigo: "d2",
@@ -105,7 +107,8 @@ test("debería transformar una lista de horarios al formato esperado por la UI",
       tipoLabel: "Domiciliario",
       dias: ["Lunes", "Miércoles", "Sábado"],
       nota: "Servicio domiciliario regular.",
-      color: "verde"
+      color: "verde",
+      pasaHoy: false
     }
   ]);
 });
