@@ -10,7 +10,7 @@ function formatearTipo(tipoServicio) {
   return "Domiciliario";
 }
 
-function formatearHorario(horario) {
+function formatearHorario(horario, diaActual) {
   return {
     codigo: horario.codigo,
     titulo: horario.nombre_distrito,
@@ -20,18 +20,23 @@ function formatearHorario(horario) {
     tipoLabel: formatearTipo(horario.tipo_servicio),
     dias: horario.dias,
     nota: horario.nota,
-    color: horario.color
+    color: horario.color,
+    pasaHoy: diaActual ? pasaHoy(horario.dias, diaActual) : false
   };
 }
-function formatearHorarios(horarios) {
-  return horarios.map(formatearHorario);
+function formatearHorarios(horarios, diaActual) {
+  return horarios.map((horario) => formatearHorario(horario, diaActual));
 }
 
 function construirHorarioTexto(horaInicio, horaFin) {
   return `${formatearHora(horaInicio)} - ${formatearHora(horaFin)}`;
 }
+function pasaHoy(dias, diaActual) {
+  return dias.includes(diaActual);
+}
 module.exports = {
   formatearHorario,
   formatearHorarios,
-  construirHorarioTexto
+  construirHorarioTexto,
+  pasaHoy
 };

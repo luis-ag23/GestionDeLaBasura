@@ -31,7 +31,8 @@ describe("horarios.presenter", () => {
       tipoLabel: "Contenedor",
       dias: ["Lunes", "Miércoles", "Viernes"],
       nota: "Zona central con contenedores soterrados.",
-      color: "azul"
+      color: "azul",
+      pasaHoy: false
     });
   });
 });
@@ -94,7 +95,8 @@ test("debería transformar una lista de horarios al formato esperado por la UI",
       tipoLabel: "Contenedor",
       dias: ["Lunes", "Miércoles", "Viernes"],
       nota: "Zona central con contenedores soterrados.",
-      color: "azul"
+      color: "azul",
+      pasaHoy: false
     },
     {
       codigo: "d2",
@@ -105,7 +107,8 @@ test("debería transformar una lista de horarios al formato esperado por la UI",
       tipoLabel: "Domiciliario",
       dias: ["Lunes", "Miércoles", "Sábado"],
       nota: "Servicio domiciliario regular.",
-      color: "verde"
+      color: "verde",
+      pasaHoy: false
     }
   ]);
 });
@@ -128,4 +131,22 @@ test("debería indicar false si el horario no incluye el día actual", () => {
   const resultado = pasaHoy(dias, "Lunes");
 
   expect(resultado).toBe(false);
+});
+test("debería incluir pasaHoy en el horario formateado cuando se envía el día actual", () => {
+  const horario = {
+    codigo: "d1",
+    nombre_distrito: "Distrito 1",
+    zona: "Centro Histórico",
+    turno: "Tarde",
+    hora_inicio: "16:00:00",
+    hora_fin: "00:00:00",
+    dias: ["Lunes", "Miércoles", "Viernes"],
+    tipo_servicio: "contenedor",
+    nota: "Zona central con contenedores soterrados.",
+    color: "azul"
+  };
+
+  const resultado = formatearHorario(horario, "Lunes");
+
+  expect(resultado.pasaHoy).toBe(true);
 });
