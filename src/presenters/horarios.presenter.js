@@ -23,7 +23,10 @@ function formatearHorario(horario) {
     color: horario.color
   };
 }
-
+function formatearHorarios(horarios) {
+  return horarios.map(formatearHorario);
+}
 module.exports = {
-  formatearHorario
+  formatearHorario,
+  formatearHorarios
 };
