@@ -127,5 +127,15 @@ describe("horarios.service", () => {
   expect(resultado).toEqual(horarioFormateadoMock);
   expect(horariosPresenter.formatearHorario).toHaveBeenCalledWith(horarioMock);
 });
+test("debería devolver undefined si no existe el horario a formatear por código", async () => {
+  horariosRepository.getAllHorarios.mockResolvedValue([
+    { codigo: "d1", nombre_distrito: "Distrito 1" }
+  ]);
+
+  const resultado = await obtenerHorarioFormateadoPorCodigo("d99");
+
+  expect(resultado).toBeUndefined();
+  expect(horariosPresenter.formatearHorario).not.toHaveBeenCalled();
+});
   
 });
