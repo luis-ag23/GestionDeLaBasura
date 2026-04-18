@@ -5,6 +5,10 @@ async function cargarHorariosParaHome() {
 }
 
 async function cargarHorarioPorCodigoParaHome(codigo) {
+  if (!codigo) {
+    return horariosService.obtenerHorariosFormateados();
+  }
+
   return horariosService.obtenerHorarioFormateadoPorCodigo(codigo);
 }
 
