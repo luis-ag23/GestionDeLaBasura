@@ -12,7 +12,22 @@ async function cargarHorarioPorCodigoParaHome(codigo) {
   return horariosService.obtenerHorarioFormateadoPorCodigo(codigo);
 }
 
+async function cargarListaParaHome(codigo) {
+  if (!codigo) {
+    return cargarHorariosParaHome();
+  }
+
+  const horario = await cargarHorarioPorCodigoParaHome(codigo);
+
+  if (!horario) {
+    return [];
+  }
+
+  return [horario];
+}
+
 module.exports = {
   cargarHorariosParaHome,
-  cargarHorarioPorCodigoParaHome
+  cargarHorarioPorCodigoParaHome,
+  cargarListaParaHome
 };
