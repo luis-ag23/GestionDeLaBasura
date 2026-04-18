@@ -6,4 +6,8 @@ describe("horarios integration", () => {
 
     expect(result.rows.length).toBeGreaterThan(0);
   });
+
+  afterAll(async () => {
+    await pool.end();
+  });
 });
