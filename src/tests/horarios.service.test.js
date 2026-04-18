@@ -30,3 +30,16 @@ test("debería devolver un horario por su código", async () => {
 
   expect(resultado).toEqual({ codigo: "d2", nombre_distrito: "Distrito 2" });
 });
+
+test("debería devolver undefined si el código no existe", async () => {
+  const horariosMock = [
+    { codigo: "d1", nombre_distrito: "Distrito 1" },
+    { codigo: "d2", nombre_distrito: "Distrito 2" }
+  ];
+
+  horariosRepository.getAllHorarios.mockResolvedValue(horariosMock);
+
+  const resultado = await obtenerHorarioPorCodigo("d99");
+
+  expect(resultado).toBeUndefined();
+});
