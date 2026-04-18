@@ -16,7 +16,7 @@ function formatearHorario(horario) {
     titulo: horario.nombre_distrito,
     subtitulo: horario.zona,
     turno: horario.turno,
-    horarioTexto: `${formatearHora(horario.hora_inicio)} - ${formatearHora(horario.hora_fin)}`,
+    horarioTexto: construirHorarioTexto(horario.hora_inicio, horario.hora_fin),
     tipoLabel: formatearTipo(horario.tipo_servicio),
     dias: horario.dias,
     nota: horario.nota,
@@ -26,7 +26,12 @@ function formatearHorario(horario) {
 function formatearHorarios(horarios) {
   return horarios.map(formatearHorario);
 }
+
+function construirHorarioTexto(horaInicio, horaFin) {
+  return `${formatearHora(horaInicio)} - ${formatearHora(horaFin)}`;
+}
 module.exports = {
   formatearHorario,
-  formatearHorarios
+  formatearHorarios,
+  construirHorarioTexto
 };
