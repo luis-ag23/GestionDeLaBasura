@@ -13,9 +13,14 @@ async function obtenerHorariosPorDia(dia) {
   const horarios = await horariosRepository.getAllHorarios();
   return horarios.filter((horario) => horario.dias.includes(dia));
 }
+async function obtenerHorariosDeHoy(dia) {
+  const horarios = await horariosRepository.getAllHorarios();
+  return horarios.filter((horario) => horario.dias.includes(dia));
+}
 
 module.exports = {
   obtenerHorarios,
   obtenerHorarioPorCodigo,
-  obtenerHorariosPorDia
+  obtenerHorariosPorDia,
+  obtenerHorariosDeHoy
 };
