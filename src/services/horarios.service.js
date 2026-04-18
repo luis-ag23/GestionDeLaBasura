@@ -20,11 +20,17 @@ async function obtenerHorariosFormateados() {
   const horarios = await horariosRepository.getAllHorarios();
   return horariosPresenter.formatearHorarios(horarios);
 }
+async function obtenerHorarioFormateadoPorCodigo(codigo) {
+  const horario = await obtenerHorarioPorCodigo(codigo);
+  return horariosPresenter.formatearHorario(horario);
+}
 module.exports = {
   obtenerHorarios,
   obtenerHorarioPorCodigo,
   obtenerHorariosPorDia,
   obtenerHorariosDeHoy,
-  obtenerHorariosFormateados
+  obtenerHorariosFormateados,
+  obtenerHorarioFormateadoPorCodigo
+  
 };
 
