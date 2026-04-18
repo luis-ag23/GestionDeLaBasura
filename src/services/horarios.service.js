@@ -22,6 +22,11 @@ async function obtenerHorariosFormateados() {
 }
 async function obtenerHorarioFormateadoPorCodigo(codigo) {
   const horario = await obtenerHorarioPorCodigo(codigo);
+
+  if (!horario) {
+    return undefined;
+  }
+
   return horariosPresenter.formatearHorario(horario);
 }
 module.exports = {
