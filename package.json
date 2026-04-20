@@ -20,16 +20,17 @@
     "test": "jest"
   },
   "jest": {
-  "setupFiles": [
-    "<rootDir>/jest.setup.js"
-  ]
-},
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
+  },
   "devDependencies": {
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "parcel-bundler": "^1.12.5"
   },
   "dependencies": {
+    "express": "^5.2.1",
     "pg": "^8.20.0"
   }
 }
