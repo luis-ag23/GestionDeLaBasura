@@ -1,5 +1,5 @@
-const horariosRepository = require("../db/horarios.repository");
-const horariosPresenter = require("../presenters/horarios.presenter");
+const horariosRepository = require("../repository/horarios.repository");
+const horariosPresenter = require("../presenter/horarios.presenter");
 async function obtenerHorarios() {
   const horarios = await horariosRepository.getAllHorarios();
   return horarios;

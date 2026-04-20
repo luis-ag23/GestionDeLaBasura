@@ -1,4 +1,4 @@
-const horariosService = require("../services/horarios.service");
+const horariosService = require("../service/horarios.service");
 
 async function cargarHorariosParaHome() {
   return horariosService.obtenerHorariosFormateados();

@@ -3,7 +3,7 @@ const {
   formatearHorarios,
   construirHorarioTexto,
   pasaHoy
-} = require("../presenters/horarios.presenter");
+} = require("../presenter/horarios.presenter");
 
 describe("horarios.presenter", () => {
   test("debería transformar un horario al formato esperado por la UI", () => {

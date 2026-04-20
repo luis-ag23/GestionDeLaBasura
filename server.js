@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const horariosController = require("./src/controllers/horarios.controller");
+const horariosController = require("./src/features/horarios/controller/horarios.controller");
 
 const app = express();
 const PORT = 3000;

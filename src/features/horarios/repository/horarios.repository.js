@@ -1,4 +1,4 @@
-const pool = require("../../db"); 
+const pool = require("../../../../db"); 
 
 async function getAllHorarios() {
   const result = await pool.query("SELECT * FROM horarios ORDER BY codigo");

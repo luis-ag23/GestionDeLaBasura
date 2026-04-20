@@ -1,4 +1,4 @@
-const { cargarYRenderizarHorarios, enlazarFiltroDistrito } = require("./views/home.view");
+const { cargarYRenderizarHorarios, enlazarFiltroDistrito } = require("./features/horarios/view/home.view");
 
 async function iniciarHome() {
   try {
