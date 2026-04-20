@@ -66,3 +66,15 @@ test("debe lanzar error si falta descripción", async () => {
     })
   ).rejects.toThrow("La descripción es obligatoria.");
 });
+
+
+test("debe lanzar error si falta ubicación", async () => {
+  await expect(
+    reportesService.crearReporte({
+      descripcion: "Basura",
+      ubicacion: "",
+      imagen_url: null,
+      usuario_id: 2
+    })
+  ).rejects.toThrow("La ubicación es obligatoria.");
+});
