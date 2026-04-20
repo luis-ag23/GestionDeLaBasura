@@ -85,3 +85,10 @@ test("debe formatear una lista de reportes", () => {
   expect(resultado[0].id).toBe(1);
   expect(resultado[1].id).toBe(2);
 });
+
+
+test("debe devolver arreglo vacío si recibe arreglo vacío", () => {
+  const resultado = reportesPresenter.formatearReportes([]);
+
+  expect(resultado).toEqual([]);
+});
