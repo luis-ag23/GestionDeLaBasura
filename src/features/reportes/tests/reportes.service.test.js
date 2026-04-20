@@ -54,3 +54,15 @@ test("debe aplicar trim a descripción y ubicación", async () => {
     usuario_id: 2
   });
 });
+
+
+test("debe lanzar error si falta descripción", async () => {
+  await expect(
+    reportesService.crearReporte({
+      descripcion: "",
+      ubicacion: "Zona norte",
+      imagen_url: null,
+      usuario_id: 2
+    })
+  ).rejects.toThrow("La descripción es obligatoria.");
+});
