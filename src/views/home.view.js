@@ -15,8 +15,12 @@ function renderizarTarjeta(horario) {
 function renderizarHorarios(horarios) {
   const grid = document.getElementById("zonas-grid");
 
-  if (!grid) return;
+  if (!grid) {
+    console.error("No existe #zonas-grid");
+    return;
+  }
 
+  console.log("Horarios a renderizar:", horarios);
   grid.innerHTML = horarios.map(renderizarTarjeta).join("");
 }
 
@@ -28,7 +32,10 @@ async function cargarYRenderizarHorarios(codigo) {
 function enlazarFiltroDistrito() {
   const select = document.getElementById("select-distrito");
 
-  if (!select) return;
+  if (!select) {
+    console.error("No existe #select-distrito");
+    return;
+  }
 
   select.addEventListener("change", function () {
     cargarYRenderizarHorarios(this.value);
