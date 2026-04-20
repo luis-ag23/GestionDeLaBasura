@@ -1,4 +1,4 @@
-const pool = require("../../db");
+const pool = require("../../../../db");
 
 describe("horarios integration", () => {
   test("debería traer horarios reales desde la base de datos", async () => {
