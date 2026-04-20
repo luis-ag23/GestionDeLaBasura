@@ -92,3 +92,5 @@ test("debe devolver arreglo vacío si recibe arreglo vacío", () => {
 
   expect(resultado).toEqual([]);
 });
+
+
