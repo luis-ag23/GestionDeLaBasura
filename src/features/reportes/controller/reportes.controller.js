@@ -1,4 +1,4 @@
-const reportesService = require("../service/reportes.service");
+const reportesService = require("../services/reportes.service");
 
 async function obtenerReportes(req, res) {
   try {
