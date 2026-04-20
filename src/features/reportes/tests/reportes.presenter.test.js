@@ -39,3 +39,19 @@ test('debe poner "pendiente" si estado no existe', () => {
 
   expect(resultado.estado).toBe("pendiente");
 });
+
+test("debe devolver null en created_at si no hay fecha", () => {
+  const reporte = {
+    id: 1,
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: null,
+    estado: "pendiente",
+    usuario_id: 2,
+    created_at: null
+  };
+
+  const resultado = reportesPresenter.formatearReporte(reporte);
+
+  expect(resultado.created_at).toBeNull();
+});
