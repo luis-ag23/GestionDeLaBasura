@@ -26,21 +26,16 @@
         <nav class="navbar__links">
             <a href="#horarios" class="navbar__link">Horarios</a>
             <a href="#clima"    class="navbar__link">Clima</a>
-            <!-- BOTÓN REPORTES: a futuro enlazar a la pantalla de reportes -->
-            <a href="../index.html" class="btn btn--reportes">
+            <a href="../reportes/reportes.html" class="btn btn--reportes">
                 📋 Reportes
             </a>
         </nav>
     </header>
 
-    <!-- ══════════════════════════════════════════
-         HERO / SALUDO
-    ══════════════════════════════════════════ -->
     <section class="hero">
         <div class="hero__bg-pattern"></div>
         <div class="hero__content">
 
-            <!-- Saludo — el span #user-name se llenará cuando haya login -->
             <p class="hero__greeting">
                 Hola, <span class="hero__username" id="user-name">vecino/a</span> 👋
             </p>
@@ -53,8 +48,7 @@
                 el clima actual y reporta incidentes en tu barrio.
             </p>
 
-            <!-- CTA principal a reportes -->
-            <a href="../index.html" class="btn btn--hero">
+            <a href="../reportes/reportes.html" class="btn btn--hero">
                 <span>Ver Reportes</span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
                     <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/>
@@ -62,9 +56,6 @@
             </a>
         </div>
 
-        <!-- ══════════════════════════════════════
-             TARJETA CLIMA (Cochabamba)
-        ══════════════════════════════════════ -->
         <div class="clima-card" id="clima">
             <div class="clima-card__header">
                 <span class="clima-card__city">📍 Cochabamba, Bolivia</span>
@@ -88,9 +79,6 @@
         </div>
     </section>
 
-    <!-- ══════════════════════════════════════════
-         SECCIÓN HORARIOS POR ZONA
-    ══════════════════════════════════════════ -->
     <section class="horarios" id="horarios">
         <div class="horarios__header">
             <h2 class="horarios__title">🚛 Horarios del Carro Basurero</h2>
@@ -100,7 +88,6 @@
             </p>
         </div>
 
-        <!-- FILTRO DE DISTRITOS -->
         <div class="filtro">
             <label class="filtro__label" for="select-distrito">Selecciona tu Distrito:</label>
             <div class="filtro__wrapper">
@@ -127,12 +114,9 @@
             </div>
         </div>
 
-        <!-- GRID DE TARJETAS DE DISTRITO -->
         <div class="zonas-grid" id="zonas-grid">
-            <!-- Las tarjetas se generan con JS -->
         </div>
 
-        <!-- BANNER INFORMATIVO EMSA -->
         <div class="emsa-banner">
             <div class="emsa-banner__icon">ℹ️</div>
             <div>
@@ -144,10 +128,6 @@
             </div>
         </div>
     </section>
-
-    <!-- ══════════════════════════════════════════
-         FOOTER
-    ══════════════════════════════════════════ -->
     <footer class="footer">
         <p>© 2026 GestiónBasura Cochabamba · Datos EMSA · Clima Open-Meteo</p>
     </footer>

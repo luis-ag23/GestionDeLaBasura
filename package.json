@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel home/home.html",
     "build": "parcel build index.html",
     "test": "jest"
   },
