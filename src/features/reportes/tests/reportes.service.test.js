@@ -23,3 +23,34 @@ test("debe obtener y formatear todos los reportes", async () => {
   expect(reportesPresenter.formatearReportes).toHaveBeenCalledWith(reportes);
   expect(resultado).toEqual(reportesFormateados);
 });
+
+test("debe aplicar trim a descripción y ubicación", async () => {
+  const datosEntrada = {
+    descripcion: "   Basura acumulada   ",
+    ubicacion: "   Zona norte   ",
+    imagen_url: "",
+    usuario_id: "2"
+  };
+
+  const reporteGuardado = {
+    id: 1,
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: null,
+    estado: "pendiente",
+    usuario_id: 2,
+    created_at: "2026-04-20T10:00:00.000Z"
+  };
+
+  reportesRepository.createReporte.mockResolvedValue(reporteGuardado);
+  reportesPresenter.formatearReporte.mockReturnValue(reporteGuardado);
+
+  await reportesService.crearReporte(datosEntrada);
+
+  expect(reportesRepository.createReporte).toHaveBeenCalledWith({
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: null,
+    usuario_id: 2
+  });
+});
