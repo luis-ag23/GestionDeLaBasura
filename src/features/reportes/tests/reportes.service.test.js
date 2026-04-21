@@ -78,3 +78,26 @@ test("debe lanzar error si falta ubicación", async () => {
     })
   ).rejects.toThrow("La ubicación es obligatoria.");
 });
+
+test("debe obtener y formatear los reportes de un usuario específico", async () => {
+  const usuarioId = 2;
+
+  const reportes = [
+    { id: 1, descripcion: "Basura", ubicacion: "Zona norte", usuario_id: 2 },
+    { id: 2, descripcion: "Escombros", ubicacion: "Centro", usuario_id: 2 }
+  ];
+
+  const reportesFormateados = [
+    { id: 1, descripcion: "Basura", ubicacion: "Zona norte", estado: "pendiente", usuario_id: 2 },
+    { id: 2, descripcion: "Escombros", ubicacion: "Centro", estado: "resuelto", usuario_id: 2 }
+  ];
+
+  reportesRepository.getReportesByUsuarioId.mockResolvedValue(reportes);
+  reportesPresenter.formatearReportes.mockReturnValue(reportesFormateados);
+
+  const resultado = await reportesService.obtenerReportesPorUsuario(usuarioId);
+
+  expect(reportesRepository.getReportesByUsuarioId).toHaveBeenCalledWith(usuarioId);
+  expect(reportesPresenter.formatearReportes).toHaveBeenCalledWith(reportes);
+  expect(resultado).toEqual(reportesFormateados);
+});
