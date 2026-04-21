@@ -6,20 +6,22 @@ jest.mock("../services/reportes.service");
 describe("reportes.controller", () => {
   let req;
   let res;
+    let consoleErrorSpy;
 
-  beforeEach(() => {
-    req = {
-      query: {},
-      body: {}
-    };
+beforeEach(() => {
+  req = { query: {}, body: {} };
+  res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn()
+  };
 
-    res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn()
-    };
+  consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+  jest.clearAllMocks();
+});
 
-    jest.clearAllMocks();
-  });
+afterEach(() => {
+  consoleErrorSpy.mockRestore();
+});
 
   test("debe obtener todos los reportes si no se envía usuario_id", async () => {
     const reportes = [{ id: 1, descripcion: "Basura", usuario_id: 2 }];
