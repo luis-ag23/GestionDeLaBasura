@@ -58,4 +58,17 @@ describe("reportes.controller", () => {
       message: "No se pudieron obtener los reportes."
     });
   });
+
+
+    test("debe responder con una lista vacía si no hay reportes por usuario", async () => {
+    req.query.usuario_id = "2";
+    reportesService.obtenerReportesPorUsuario.mockResolvedValue([]);
+
+    await reportesController.obtenerReportes(req, res);
+
+    expect(reportesService.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith([]);
+    });
+
 });
