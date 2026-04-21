@@ -157,3 +157,14 @@ test("debe incluir el estado en los reportes obtenidos", async () => {
   expect(resultado[0]).toHaveProperty("estado");
   expect(resultado[0].estado).toBe("pendiente");
 });
+
+test("debe devolver una lista vacía cuando no existen reportes", async () => {
+  reportesRepository.getAllReportes.mockResolvedValue([]);
+  reportesPresenter.formatearReportes.mockReturnValue([]);
+
+  const resultado = await reportesService.obtenerReportes();
+
+  expect(reportesRepository.getAllReportes).toHaveBeenCalled();
+  expect(reportesPresenter.formatearReportes).toHaveBeenCalledWith([]);
+  expect(resultado).toEqual([]);
+});
