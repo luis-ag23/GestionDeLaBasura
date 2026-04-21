@@ -73,4 +73,13 @@ afterEach(() => {
     expect(res.json).toHaveBeenCalledWith([]);
     });
 
+    test("debe convertir usuario_id a número antes de consultar reportes por usuario", async () => {
+    req.query.usuario_id = "2";
+    reportesService.obtenerReportesPorUsuario.mockResolvedValue([]);
+
+    await reportesController.obtenerReportes(req, res);
+
+    expect(reportesService.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
+    });
+
 });
