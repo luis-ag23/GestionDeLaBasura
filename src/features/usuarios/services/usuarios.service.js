@@ -1,11 +1,13 @@
-// Iteración 2: usuarios.service.js
-// ESTADO: Pasa Test 1 y 2. Falla Test 3 y 4. 🔴🔴
-
 const bcrypt = require("bcrypt");
 const usuariosRepository = require("../repository/usuarios.repository");
 const usuariosPresenter = require("../presenter/usuarios.presenter");
 
 async function crearUsuario(datos) {
+  const usuarioExistente = await usuariosRepository.getUsuarioByCorreo(datos.correo);
+  if (usuarioExistente) {
+    throw new Error("El correo ya está registrado.");
+  }
+
   const salt = await bcrypt.genSalt(10);
   const password_hash = await bcrypt.hash(datos.password, salt);
 
@@ -13,7 +15,7 @@ async function crearUsuario(datos) {
     nombre: datos.nombre,
     correo: datos.correo,
     password_hash: password_hash,
-    rol: datos.rol || "usuario" // Lógica agregada para pasar el Test 2
+    rol: datos.rol || "usuario"
   });
 
   return usuariosPresenter.formatearUsuario(usuarioCreado);
