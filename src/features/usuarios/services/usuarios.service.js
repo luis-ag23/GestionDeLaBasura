@@ -1,3 +1,5 @@
+// Iteración 2: usuarios.service.js
+// ESTADO: Pasa Test 1 y 2. Falla Test 3 y 4. 🔴🔴
 
 const bcrypt = require("bcrypt");
 const usuariosRepository = require("../repository/usuarios.repository");
@@ -11,7 +13,7 @@ async function crearUsuario(datos) {
     nombre: datos.nombre,
     correo: datos.correo,
     password_hash: password_hash,
-    rol: datos.rol 
+    rol: datos.rol || "usuario" // Lógica agregada para pasar el Test 2
   });
 
   return usuariosPresenter.formatearUsuario(usuarioCreado);
