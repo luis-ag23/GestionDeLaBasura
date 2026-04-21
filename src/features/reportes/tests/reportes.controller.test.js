@@ -47,4 +47,15 @@ describe("reportes.controller", () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(reportes);
   });
+
+  test("debe responder con 500 si ocurre un error al obtener reportes", async () => {
+    reportesService.obtenerReportes.mockRejectedValue(new Error("Error interno"));
+
+    await reportesController.obtenerReportes(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "No se pudieron obtener los reportes."
+    });
+  });
 });
