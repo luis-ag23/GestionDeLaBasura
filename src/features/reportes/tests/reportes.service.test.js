@@ -78,3 +78,124 @@ test("debe lanzar error si falta ubicación", async () => {
     })
   ).rejects.toThrow("La ubicación es obligatoria.");
 });
+
+test("debe obtener y formatear los reportes de un usuario específico", async () => {
+  const usuarioId = 2;
+
+  const reportes = [
+    { id: 1, descripcion: "Basura", ubicacion: "Zona norte", usuario_id: 2 },
+    { id: 2, descripcion: "Escombros", ubicacion: "Centro", usuario_id: 2 }
+  ];
+
+  const reportesFormateados = [
+    { id: 1, descripcion: "Basura", ubicacion: "Zona norte", estado: "pendiente", usuario_id: 2 },
+    { id: 2, descripcion: "Escombros", ubicacion: "Centro", estado: "resuelto", usuario_id: 2 }
+  ];
+
+  reportesRepository.getReportesByUsuarioId.mockResolvedValue(reportes);
+  reportesPresenter.formatearReportes.mockReturnValue(reportesFormateados);
+
+  const resultado = await reportesService.obtenerReportesPorUsuario(usuarioId);
+
+  expect(reportesRepository.getReportesByUsuarioId).toHaveBeenCalledWith(usuarioId);
+  expect(reportesPresenter.formatearReportes).toHaveBeenCalledWith(reportes);
+  expect(resultado).toEqual(reportesFormateados);
+});
+
+test("debe incluir el estado en los reportes obtenidos", async () => {
+  const reportes = [
+    {
+      id: 1,
+      descripcion: "Basura",
+      ubicacion: "Zona norte",
+      estado: "pendiente"
+    }
+  ];
+
+  const reportesFormateados = [
+    {
+      id: 1,
+      descripcion: "Basura",
+      ubicacion: "Zona norte",
+      estado: "pendiente"
+    }
+  ];
+
+  reportesRepository.getAllReportes.mockResolvedValue(reportes);
+  reportesPresenter.formatearReportes.mockReturnValue(reportesFormateados);
+
+  const resultado = await reportesService.obtenerReportes();
+
+  expect(resultado[0]).toHaveProperty("estado");
+  expect(resultado[0].estado).toBe("pendiente");
+});
+
+test("debe incluir el estado en los reportes obtenidos", async () => {
+  const reportes = [
+    {
+      id: 1,
+      descripcion: "Basura",
+      ubicacion: "Zona norte",
+      estado: "pendiente"
+    }
+  ];
+
+  const reportesFormateados = [
+    {
+      id: 1,
+      descripcion: "Basura",
+      ubicacion: "Zona norte",
+      estado: "pendiente"
+    }
+  ];
+
+  reportesRepository.getAllReportes.mockResolvedValue(reportes);
+  reportesPresenter.formatearReportes.mockReturnValue(reportesFormateados);
+
+  const resultado = await reportesService.obtenerReportes();
+
+  expect(resultado[0]).toHaveProperty("estado");
+  expect(resultado[0].estado).toBe("pendiente");
+});
+
+test("debe devolver una lista vacía cuando no existen reportes", async () => {
+  reportesRepository.getAllReportes.mockResolvedValue([]);
+  reportesPresenter.formatearReportes.mockReturnValue([]);
+
+  const resultado = await reportesService.obtenerReportes();
+
+  expect(reportesRepository.getAllReportes).toHaveBeenCalled();
+  expect(reportesPresenter.formatearReportes).toHaveBeenCalledWith([]);
+  expect(resultado).toEqual([]);
+});
+
+test("debe conservar imagen_url cuando se envía un valor válido", async () => {
+  const datosEntrada = {
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: "https://ejemplo.com/imagen.jpg",
+    usuario_id: "2"
+  };
+
+  const reporteGuardado = {
+    id: 1,
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: "https://ejemplo.com/imagen.jpg",
+    estado: "pendiente",
+    usuario_id: 2,
+    created_at: "2026-04-20T10:00:00.000Z"
+  };
+
+  reportesRepository.createReporte.mockResolvedValue(reporteGuardado);
+  reportesPresenter.formatearReporte.mockReturnValue(reporteGuardado);
+
+  await reportesService.crearReporte(datosEntrada);
+
+  expect(reportesRepository.createReporte).toHaveBeenCalledWith({
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: "https://ejemplo.com/imagen.jpg",
+    usuario_id: 2
+  });
+});
