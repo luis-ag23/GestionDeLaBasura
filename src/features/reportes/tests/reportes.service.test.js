@@ -101,3 +101,31 @@ test("debe obtener y formatear los reportes de un usuario específico", async ()
   expect(reportesPresenter.formatearReportes).toHaveBeenCalledWith(reportes);
   expect(resultado).toEqual(reportesFormateados);
 });
+
+test("debe incluir el estado en los reportes obtenidos", async () => {
+  const reportes = [
+    {
+      id: 1,
+      descripcion: "Basura",
+      ubicacion: "Zona norte",
+      estado: "pendiente"
+    }
+  ];
+
+  const reportesFormateados = [
+    {
+      id: 1,
+      descripcion: "Basura",
+      ubicacion: "Zona norte",
+      estado: "pendiente"
+    }
+  ];
+
+  reportesRepository.getAllReportes.mockResolvedValue(reportes);
+  reportesPresenter.formatearReportes.mockReturnValue(reportesFormateados);
+
+  const resultado = await reportesService.obtenerReportes();
+
+  expect(resultado[0]).toHaveProperty("estado");
+  expect(resultado[0].estado).toBe("pendiente");
+});
