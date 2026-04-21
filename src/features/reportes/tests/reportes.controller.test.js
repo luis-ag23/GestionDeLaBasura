@@ -33,4 +33,18 @@ describe("reportes.controller", () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(reportes);
   });
+
+    test("debe obtener reportes por usuario si se envía usuario_id", async () => {
+    const reportes = [{ id: 1, descripcion: "Basura", usuario_id: 2 }];
+
+    req.query.usuario_id = "2";
+    reportesService.obtenerReportesPorUsuario.mockResolvedValue(reportes);
+
+    await reportesController.obtenerReportes(req, res);
+
+    expect(reportesService.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
+    expect(reportesService.obtenerReportes).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(reportes);
+  });
 });
