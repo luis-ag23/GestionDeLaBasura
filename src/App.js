@@ -1,5 +1,6 @@
 const express = require("express");
 const reportesRoutes = require("./features/reportes/routes/reportes.routes");
+const usuariosRoutes = require("./features/usuarios/routes/usuarios.routes"); 
 
 const app = express();
 const PORT = 3000;
@@ -14,7 +15,6 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
-
   next();
 });
 
@@ -23,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/reportes", reportesRoutes);
+app.use("/api/usuarios", usuariosRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Ruta no encontrada" });

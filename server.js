@@ -1,13 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const horariosController = require("./src/features/horarios/controller/horarios.controller");
-
+const usuariosRoutes = require("./src/features/usuarios/routes/usuarios.routes.js");
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
-
+app.use("/api/usuarios", usuariosRoutes);
 app.get("/api/horarios", async (req, res) => {
   try {
     const { codigo } = req.query;
