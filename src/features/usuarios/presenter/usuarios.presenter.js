@@ -1,12 +1,14 @@
-// Iteración 1: usuarios.presenter.js
-// ESTADO: Pasa Test 1 (Formateo básico). Falla Test 2 (Rol por defecto).
+function formatearRol(rol) {
+  if (!rol) return "usuario"; 
+  return rol;
+}
 
 function formatearUsuario(usuario) {
   return {
     id: usuario.id,
     nombre: usuario.nombre,
     correo: usuario.correo,
-    rol: usuario.rol, // No estamos manejando el caso de rol null o undefined aún
+    rol: formatearRol(usuario.rol), 
     created_at: new Date(usuario.created_at).toISOString()
   };
 }
