@@ -1,8 +1,13 @@
+
 const bcrypt = require("bcrypt");
 const usuariosRepository = require("../repository/usuarios.repository");
 const usuariosPresenter = require("../presenter/usuarios.presenter");
 
 async function crearUsuario(datos) {
+  if (!datos.password) {
+    throw new Error("La contraseña es obligatoria.");
+  }
+
   const usuarioExistente = await usuariosRepository.getUsuarioByCorreo(datos.correo);
   if (usuarioExistente) {
     throw new Error("El correo ya está registrado.");
