@@ -168,3 +168,34 @@ test("debe devolver una lista vacía cuando no existen reportes", async () => {
   expect(reportesPresenter.formatearReportes).toHaveBeenCalledWith([]);
   expect(resultado).toEqual([]);
 });
+
+test("debe conservar imagen_url cuando se envía un valor válido", async () => {
+  const datosEntrada = {
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: "https://ejemplo.com/imagen.jpg",
+    usuario_id: "2"
+  };
+
+  const reporteGuardado = {
+    id: 1,
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: "https://ejemplo.com/imagen.jpg",
+    estado: "pendiente",
+    usuario_id: 2,
+    created_at: "2026-04-20T10:00:00.000Z"
+  };
+
+  reportesRepository.createReporte.mockResolvedValue(reporteGuardado);
+  reportesPresenter.formatearReporte.mockReturnValue(reporteGuardado);
+
+  await reportesService.crearReporte(datosEntrada);
+
+  expect(reportesRepository.createReporte).toHaveBeenCalledWith({
+    descripcion: "Basura acumulada",
+    ubicacion: "Zona norte",
+    imagen_url: "https://ejemplo.com/imagen.jpg",
+    usuario_id: 2
+  });
+});
