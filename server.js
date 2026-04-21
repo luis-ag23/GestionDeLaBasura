@@ -5,7 +5,7 @@ const horariosController = require("./src/features/horarios/controller/horarios.
 const reportesRoutes = require("./src/features/reportes/routes/reportes.routes");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
