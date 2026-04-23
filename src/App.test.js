@@ -1,0 +1,3 @@
+test.skip("nombre del test", () => {
+  // ...
+});

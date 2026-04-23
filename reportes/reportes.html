@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mis Reportes</title>
+  <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+
+  <main class="reportes">
+    <div class="reportes__container">
+
+      <h1 class="reportes__title">Tus reportes</h1>
+
+      <button id="btn-agregar-reporte" class="btn-primary">
+        Agregar reporte
+      </button>
+
+      <div id="reportes-lista" class="reportes__lista">
+      </div>
+
+    </div>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal__overlay" id="overlay"></div>
+
+    <div class="modal__content">
+      <h2>Nuevo reporte</h2>
+
+      <form id="form-reporte">
+
+        <input
+          type="text"
+          id="descripcion"
+          placeholder="Descripción"
+          required
+        />
+
+        <input
+          type="text"
+          id="ubicacion"
+          placeholder="Ubicación"
+          required
+        />
+
+        <input
+          type="text"
+          id="imagen_url"
+          placeholder="URL imagen (opcional)"
+        />
+
+        <input
+          type="number"
+          id="usuario_id"
+          placeholder="ID Usuario"
+          required
+        />
+
+        <button type="submit">Guardar</button>
+
+      </form>
+
+      <button id="btn-cerrar">Cerrar</button>
+    </div>
+  </div>
+
+  <script type="module" src="../src/reportes.js"></script>
+</body>
+</html>

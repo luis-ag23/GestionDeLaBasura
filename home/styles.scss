@@ -1,0 +1,751 @@
+// ═══════════════════════════════════════════════════════════
+//  GESTIÓN BASURA · COCHABAMBA
+//  styles.scss  ·  Pantalla Home
+//  Paleta extraída del proyecto existente
+// ═══════════════════════════════════════════════════════════
+
+// ──────────────────────────────────────────
+//  1. VARIABLES & TOKENS
+// ──────────────────────────────────────────
+
+// Colores base (del proyecto)
+$color-dark:        #2d3748;       // header, tabla
+$color-green:       #4caf50;       // acento principal
+$color-green-dark:  #388e3c;
+$color-green-light: #c8e6c9;
+$color-bg:          #f0f2f5;       // fondo general
+$color-white:       #ffffff;
+$color-text:        #1a202c;
+$color-text-muted:  #718096;
+$color-border:      #e2e8f0;
+
+// Colores de estado para distritos
+$color-azul:        #3182ce;
+$color-naranja:     #e67e22;
+$color-gris:        #718096;
+
+// Tipografía
+$font-main:   'Sora', sans-serif;
+$font-mono:   'DM Mono', monospace;
+
+// Espaciado
+$radius-sm:   8px;
+$radius-md:   14px;
+$radius-lg:   20px;
+$shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+$shadow-lift: 0 8px 32px rgba(0, 0, 0, 0.14);
+
+// Transición global
+$ease:        all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ──────────────────────────────────────────
+//  2. RESET & BASE
+// ──────────────────────────────────────────
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin:     0;
+    padding:    0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:      $font-main;
+    background-color: $color-bg;
+    color:            $color-text;
+    line-height:      1.6;
+    min-height:       100vh;
+}
+
+a {
+    color:           $color-green;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+img {
+    max-width: 100%;
+    display:   block;
+}
+
+// ──────────────────────────────────────────
+//  3. BOTONES
+// ──────────────────────────────────────────
+
+.btn {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            8px;
+    padding:        10px 22px;
+    border-radius:  $radius-sm;
+    font-family:    $font-main;
+    font-size:      0.9rem;
+    font-weight:    600;
+    cursor:         pointer;
+    border:         none;
+    transition:     $ease;
+    text-decoration: none;
+
+    // Variante: botón de reportes (navbar)
+    &--reportes {
+        background-color: $color-green;
+        color:            $color-white;
+        letter-spacing:   0.02em;
+
+        &:hover {
+            background-color: $color-green-dark;
+            transform:        translateY(-1px);
+            box-shadow:       0 4px 14px rgba($color-green, 0.4);
+            text-decoration:  none;
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    // Variante: CTA del hero
+    &--hero {
+        background-color: $color-green;
+        color:            $color-white;
+        padding:          14px 32px;
+        font-size:        1rem;
+        border-radius:    $radius-md;
+        margin-top:       24px;
+
+        &:hover {
+            background-color: $color-green-dark;
+            transform:        translateY(-2px);
+            box-shadow:       0 6px 20px rgba($color-green, 0.45);
+            text-decoration:  none;
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+}
+
+// ──────────────────────────────────────────
+//  4. NAVBAR
+// ──────────────────────────────────────────
+
+.navbar {
+    display:          flex;
+    align-items:      center;
+    justify-content:  space-between;
+    padding:          0 32px;
+    height:           64px;
+    background-color: $color-dark;
+    position:         sticky;
+    top:              0;
+    z-index:          100;
+    box-shadow:       0 2px 12px rgba(0, 0, 0, 0.2);
+
+    &__brand {
+        display:     flex;
+        align-items: center;
+        gap:         10px;
+    }
+
+    &__icon {
+        font-size: 1.4rem;
+    }
+
+    &__title {
+        font-size:   1.1rem;
+        font-weight: 700;
+        color:       $color-white;
+        letter-spacing: 0.01em;
+    }
+
+    &__sub {
+        font-size:    0.72rem;
+        font-weight:  400;
+        color:        rgba($color-white, 0.55);
+        font-family:  $font-mono;
+        margin-left:  2px;
+        align-self:   flex-end;
+        margin-bottom: 2px;
+    }
+
+    &__links {
+        display:     flex;
+        align-items: center;
+        gap:         24px;
+    }
+
+    &__link {
+        color:          rgba($color-white, 0.8);
+        font-size:      0.88rem;
+        font-weight:    500;
+        text-decoration: none;
+        transition:     $ease;
+
+        &:hover {
+            color:          $color-white;
+            text-decoration: none;
+        }
+    }
+}
+
+// ──────────────────────────────────────────
+//  5. HERO
+// ──────────────────────────────────────────
+
+.hero {
+    position:       relative;
+    display:        flex;
+    align-items:    center;
+    justify-content: space-between;
+    gap:            48px;
+    padding:        72px 64px;
+    background:     linear-gradient(
+                        135deg,
+                        $color-dark 0%,
+                        lighten($color-dark, 8%) 60%,
+                        darken($color-dark, 2%) 100%
+                    );
+    overflow:       hidden;
+
+    // Patrón de fondo decorativo
+    &__bg-pattern {
+        position:    absolute;
+        inset:       0;
+        opacity:     0.04;
+        background-image: radial-gradient(circle, $color-green 1px, transparent 1px);
+        background-size: 28px 28px;
+        pointer-events: none;
+    }
+
+    &__content {
+        position:   relative;
+        max-width:  540px;
+        z-index:    1;
+        animation:  fadeSlideUp 0.6s ease both;
+    }
+
+    &__greeting {
+        font-size:    1rem;
+        font-weight:  400;
+        color:        rgba($color-white, 0.7);
+        margin-bottom: 10px;
+        font-family:  $font-mono;
+    }
+
+    &__username {
+        color:       $color-green;
+        font-weight: 600;
+
+        // A futuro: cuando haya login, se reemplaza el texto
+        // document.getElementById('user-name').textContent = nombreReal;
+    }
+
+    &__heading {
+        font-size:      2.8rem;
+        font-weight:    700;
+        color:          $color-white;
+        line-height:    1.15;
+        letter-spacing: -0.02em;
+        margin-bottom:  16px;
+
+        em {
+            font-style:  italic;
+            font-weight: 300;
+            color:       $color-green;
+        }
+    }
+
+    &__desc {
+        font-size:   1rem;
+        color:       rgba($color-white, 0.65);
+        line-height: 1.7;
+    }
+}
+
+// ──────────────────────────────────────────
+//  6. TARJETA CLIMA
+// ──────────────────────────────────────────
+
+.clima-card {
+    position:         relative;
+    z-index:          1;
+    background:       rgba($color-white, 0.06);
+    backdrop-filter:  blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border:           1px solid rgba($color-white, 0.12);
+    border-radius:    $radius-lg;
+    padding:          28px 32px;
+    min-width:        260px;
+    max-width:        300px;
+    color:            $color-white;
+    animation:        fadeSlideUp 0.6s 0.15s ease both;
+    flex-shrink:      0;
+
+    &__header {
+        display:         flex;
+        justify-content: space-between;
+        align-items:     center;
+        margin-bottom:   20px;
+    }
+
+    &__city {
+        font-size:   0.78rem;
+        font-family: $font-mono;
+        color:       rgba($color-white, 0.65);
+    }
+
+    &__badge {
+        font-size:        0.68rem;
+        font-weight:      600;
+        background-color: $color-green;
+        color:            $color-white;
+        padding:          2px 9px;
+        border-radius:    20px;
+        letter-spacing:   0.05em;
+        text-transform:   uppercase;
+        animation:        pulse 2.5s ease-in-out infinite;
+    }
+
+    &__main {
+        display:     flex;
+        align-items: center;
+        gap:         14px;
+        margin-bottom: 8px;
+    }
+
+    &__icon {
+        font-size: 3rem;
+        line-height: 1;
+    }
+
+    &__temp {
+        font-size:   3.2rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+    }
+
+    &__desc {
+        font-size:    0.88rem;
+        color:        rgba($color-white, 0.7);
+        margin-bottom: 20px;
+    }
+
+    &__footer {
+        display:        flex;
+        flex-direction: column;
+        gap:            6px;
+        font-size:      0.82rem;
+        font-family:    $font-mono;
+        color:          rgba($color-white, 0.65);
+        border-top:     1px solid rgba($color-white, 0.1);
+        padding-top:    14px;
+        margin-bottom:  12px;
+    }
+
+    &__note {
+        font-size: 0.68rem;
+        color:     rgba($color-white, 0.35);
+        font-family: $font-mono;
+
+        a {
+            color: rgba($color-green, 0.8);
+        }
+    }
+}
+
+// ──────────────────────────────────────────
+//  7. SECCIÓN HORARIOS
+// ──────────────────────────────────────────
+
+.horarios {
+    max-width:  1200px;
+    margin:     0 auto;
+    padding:    64px 32px 32px;
+
+    &__header {
+        text-align:    center;
+        margin-bottom: 40px;
+    }
+
+    &__title {
+        font-size:      2rem;
+        font-weight:    700;
+        color:          $color-dark;
+        letter-spacing: -0.02em;
+        margin-bottom:  10px;
+    }
+
+    &__subtitle {
+        font-size:  0.95rem;
+        color:      $color-text-muted;
+        line-height: 1.6;
+    }
+}
+
+// ──────────────────────────────────────────
+//  8. FILTRO DE DISTRITOS
+// ──────────────────────────────────────────
+
+.filtro {
+    display:       flex;
+    align-items:   center;
+    gap:           16px;
+    margin-bottom: 36px;
+    flex-wrap:     wrap;
+
+    &__label {
+        font-size:   0.9rem;
+        font-weight: 600;
+        color:       $color-text;
+        white-space: nowrap;
+    }
+
+    &__wrapper {
+        position: relative;
+        flex:      1;
+        max-width: 380px;
+    }
+
+    &__select {
+        width:            100%;
+        padding:          12px 42px 12px 16px;
+        font-family:      $font-main;
+        font-size:        0.9rem;
+        color:            $color-text;
+        background-color: $color-white;
+        border:           2px solid $color-border;
+        border-radius:    $radius-sm;
+        appearance:       none;
+        -webkit-appearance: none;
+        cursor:           pointer;
+        transition:       $ease;
+        outline:          none;
+
+        &:focus {
+            border-color: $color-green;
+            box-shadow:   0 0 0 3px rgba($color-green, 0.15);
+        }
+
+        &:hover {
+            border-color: darken($color-border, 15%);
+        }
+    }
+
+    &__arrow {
+        position:      absolute;
+        right:         14px;
+        top:           50%;
+        transform:     translateY(-50%);
+        pointer-events: none;
+        color:         $color-text-muted;
+    }
+}
+
+// ──────────────────────────────────────────
+//  9. GRID DE ZONAS / TARJETAS
+// ──────────────────────────────────────────
+
+.zonas-grid {
+    display:               grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap:                   20px;
+    margin-bottom:         40px;
+}
+
+.zona-card {
+    position:         relative;
+    background-color: $color-white;
+    border-radius:    $radius-md;
+    padding:          22px 24px;
+    box-shadow:       $shadow-card;
+    border-left:      4px solid $color-border;
+    transition:       $ease;
+    overflow:         hidden;
+
+    &:hover {
+        transform:  translateY(-3px);
+        box-shadow: $shadow-lift;
+    }
+
+    // Colores de acento por tipo de zona
+    &--verde   { border-left-color: $color-green; }
+    &--azul    { border-left-color: $color-azul; }
+    &--naranja { border-left-color: $color-naranja; }
+    &--gris    { border-left-color: $color-gris; }
+
+    // Tarjeta especial cuando el carro pasa hoy
+    &--recoge-hoy {
+        border-left-color: $color-green;
+        background:        linear-gradient(
+                                135deg,
+                                $color-white 70%,
+                                rgba($color-green, 0.06) 100%
+                            );
+
+        &::before {
+            content:          '';
+            position:         absolute;
+            top:              0;
+            right:            0;
+            width:            80px;
+            height:           80px;
+            background:       radial-gradient(circle at top right, rgba($color-green, 0.12), transparent 70%);
+            pointer-events:   none;
+        }
+    }
+
+    &__badge-hoy {
+        display:          inline-block;
+        font-size:        0.72rem;
+        font-weight:      700;
+        background-color: $color-green;
+        color:            $color-white;
+        padding:          3px 10px;
+        border-radius:    20px;
+        margin-bottom:    12px;
+        letter-spacing:   0.04em;
+        text-transform:   uppercase;
+    }
+
+    &__head {
+        display:         flex;
+        justify-content: space-between;
+        align-items:     flex-start;
+        margin-bottom:   14px;
+        gap:             8px;
+    }
+
+    &__numero {
+        font-size:    0.72rem;
+        font-weight:  600;
+        font-family:  $font-mono;
+        color:        $color-text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display:      block;
+        margin-bottom: 2px;
+    }
+
+    &__zona {
+        font-size:   1.05rem;
+        font-weight: 700;
+        color:       $color-dark;
+        line-height: 1.3;
+    }
+
+    &__tipo {
+        font-size:        0.72rem;
+        font-weight:      500;
+        background-color: $color-bg;
+        color:            $color-text-muted;
+        padding:          4px 10px;
+        border-radius:    20px;
+        white-space:      nowrap;
+        flex-shrink:      0;
+    }
+
+    &__horario {
+        display:       flex;
+        flex-direction: column;
+        gap:           2px;
+        margin-bottom: 16px;
+        padding:       10px 14px;
+        background:    $color-bg;
+        border-radius: $radius-sm;
+    }
+
+    &__turno {
+        font-size:   0.8rem;
+        font-weight: 600;
+        color:       $color-text;
+    }
+
+    &__hora {
+        font-size:   1.05rem;
+        font-weight: 700;
+        font-family: $font-mono;
+        color:       $color-dark;
+    }
+
+    &__dias {
+        display:       flex;
+        gap:           5px;
+        flex-wrap:     wrap;
+        margin-bottom: 12px;
+    }
+
+    &__nota {
+        font-size:   0.78rem;
+        color:       $color-text-muted;
+        line-height: 1.5;
+        border-top:  1px solid $color-border;
+        padding-top: 10px;
+        margin-top:  4px;
+    }
+}
+
+// Chips de días de la semana
+.dia-chip {
+    display:          inline-block;
+    font-size:        0.72rem;
+    font-weight:      500;
+    font-family:      $font-mono;
+    padding:          4px 8px;
+    border-radius:    6px;
+    background-color: $color-bg;
+    color:            $color-text-muted;
+    border:           1px solid $color-border;
+    transition:       $ease;
+
+    // Día activo (el carro pasa ese día)
+    &--activo {
+        background-color: $color-green-light;
+        color:            $color-green-dark;
+        border-color:     $color-green;
+        font-weight:      700;
+    }
+
+    // Hoy + activo = resaltado especial
+    &--hoy {
+        background-color: $color-green;
+        color:            $color-white;
+        border-color:     $color-green-dark;
+        box-shadow:       0 2px 8px rgba($color-green, 0.4);
+        transform:        scale(1.1);
+    }
+}
+
+// ──────────────────────────────────────────
+//  10. BANNER INFORMATIVO EMSA
+// ──────────────────────────────────────────
+
+.emsa-banner {
+    display:          flex;
+    align-items:      flex-start;
+    gap:              16px;
+    background-color: rgba($color-azul, 0.07);
+    border:           1px solid rgba($color-azul, 0.2);
+    border-radius:    $radius-md;
+    padding:          20px 24px;
+    font-size:        0.88rem;
+    line-height:      1.6;
+    color:            $color-text;
+    margin-bottom:    48px;
+
+    &__icon {
+        font-size:  1.4rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    a {
+        color:       $color-azul;
+        font-weight: 600;
+    }
+}
+
+// ──────────────────────────────────────────
+//  11. FOOTER
+// ──────────────────────────────────────────
+
+.footer {
+    text-align:       center;
+    padding:          24px 32px;
+    background-color: $color-dark;
+    color:            rgba($color-white, 0.45);
+    font-size:        0.8rem;
+    font-family:      $font-mono;
+}
+
+// ──────────────────────────────────────────
+//  12. ANIMACIONES
+// ──────────────────────────────────────────
+
+@keyframes fadeSlideUp {
+    from {
+        opacity:   0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity:   1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.6; }
+}
+
+// ──────────────────────────────────────────
+//  13. RESPONSIVE
+// ──────────────────────────────────────────
+
+@media (max-width: 900px) {
+
+    .hero {
+        flex-direction: column;
+        padding:        48px 32px;
+        text-align:     center;
+
+        &__heading {
+            font-size: 2rem;
+        }
+
+        &__content {
+            max-width: 100%;
+        }
+    }
+
+    .clima-card {
+        max-width: 100%;
+        width:     100%;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding: 0 16px;
+
+        &__sub,
+        &__links a:not(.btn--reportes) {
+            display: none;
+        }
+    }
+
+    .hero {
+        padding: 36px 20px;
+
+        &__heading {
+            font-size: 1.6rem;
+        }
+    }
+
+    .horarios {
+        padding: 40px 16px 24px;
+    }
+
+    .zonas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filtro {
+        flex-direction: column;
+        align-items:    flex-start;
+
+        &__wrapper {
+            max-width: 100%;
+            width:     100%;
+        }
+    }
+}
