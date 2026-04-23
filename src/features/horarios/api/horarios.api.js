@@ -1,7 +1,9 @@
+const API_URL = "https://gestiondelabasura.onrender.com";
+
 async function obtenerListaHorarios(codigo = "") {
   const url = codigo
-    ? `http://localhost:3000/api/horarios?codigo=${encodeURIComponent(codigo)}`
-    : "http://localhost:3000/api/horarios";
+    ? `${API_URL}/api/horarios?codigo=${encodeURIComponent(codigo)}`
+    : `${API_URL}/api/horarios`;
 
   const response = await fetch(url);
 
@@ -12,6 +14,4 @@ async function obtenerListaHorarios(codigo = "") {
   return response.json();
 }
 
-module.exports = {
-  obtenerListaHorarios
-};
+export { obtenerListaHorarios };

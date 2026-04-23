@@ -1,12 +1,17 @@
 const express = require("express");
 const cors = require("cors");
+
 const horariosController = require("./src/features/horarios/controller/horarios.controller");
 const usuariosRoutes = require("./src/features/usuarios/routes/usuarios.routes.js");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.json({ message: "API de GestiónDeLaBasura funcionando" });
+});
 app.use("/api/usuarios", usuariosRoutes);
 app.get("/api/horarios", async (req, res) => {
   try {
@@ -30,6 +35,14 @@ app.get("/api/horarios/:codigo", async (req, res) => {
   }
 });
 
+app.use("/api/reportes", reportesRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Ruta no encontrada" });
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+module.exports = app;
