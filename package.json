@@ -17,7 +17,8 @@
   "scripts": {
     "start": "parcel home/home.html",
     "build": "parcel build home/home.html",
-    "test": "jest"
+    "test": "jest",
+    "test-once": "jest --runInBand"
   },
   "jest": {
     "setupFiles": [
