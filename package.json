@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel home/home.html",
-    "build": "parcel build index.html",
+    "build": "parcel build home/home.html",
     "test": "jest"
   },
   "jest": {

@@ -2,10 +2,9 @@ const express = require("express");
 const cors = require("cors");
 
 const horariosController = require("./src/features/horarios/controller/horarios.controller");
-const reportesRoutes = require("./src/features/reportes/routes/reportes.routes");
-
+const usuariosRoutes = require("./src/features/usuarios/routes/usuarios.routes.js");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -13,7 +12,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "API de GestiónDeLaBasura funcionando" });
 });
-
+app.use("/api/usuarios", usuariosRoutes);
 app.get("/api/horarios", async (req, res) => {
   try {
     const { codigo } = req.query;

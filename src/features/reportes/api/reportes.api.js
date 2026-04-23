@@ -1,5 +1,7 @@
+const API_URL = "https://gestiondelabasura.onrender.com";
+
 async function obtenerListaReportes() {
-  const response = await fetch("http://localhost:3000/api/reportes");
+  const response = await fetch(`${API_URL}/api/reportes`);
 
   if (!response.ok) {
     throw new Error("No se pudieron cargar los reportes");
@@ -9,7 +11,7 @@ async function obtenerListaReportes() {
 }
 
 async function crearReporte(reporte) {
-  const response = await fetch("http://localhost:3000/api/reportes", {
+  const response = await fetch(`${API_URL}/api/reportes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -18,7 +20,8 @@ async function crearReporte(reporte) {
   });
 
   if (!response.ok) {
-    throw new Error("No se pudo crear el reporte");
+    const errorData = await response.json().catch(() => null);
+    throw new Error(errorData?.message || "No se pudo crear el reporte");
   }
 
   return response.json();
