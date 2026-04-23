@@ -13,5 +13,4 @@ async function obtenerListaHorarios(codigo = "") {
 
   return response.json();
 }
-
-export { obtenerListaHorarios };
+module.exports = { obtenerListaHorarios };
