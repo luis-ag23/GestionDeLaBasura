@@ -24,8 +24,8 @@ describe("Usuarios Service", () => {
       };
 
       usuariosRepository.getUsuarioByCorreo.mockResolvedValue(null); // Simulamos que el correo NO existe
-      bcrypt.genSalt.mockResolvedValue("fakeSalt"); // Simulamos la sal
-      bcrypt.hash.mockResolvedValue("hashed_mipassword123"); // Simulamos el hash resultante
+      bcrypt.genSalt.mockResolvedValue("fakeSalt");
+      bcrypt.hash.mockResolvedValue("hashed_mipassword123");
       
       const usuarioSimuladoDB = { id: 1, ...datosEntrada, password_hash: "hashed_mipassword123" };
       usuariosRepository.createUsuario.mockResolvedValue(usuarioSimuladoDB);
