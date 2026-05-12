@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const horariosController = require("./src/features/horarios/controller/horarios.controller");
 const usuariosRoutes = require("./src/features/usuarios/routes/usuarios.routes.js");
+const reportesRoutes = require("./src/features/reportes/routes/reportes.routes.js");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
