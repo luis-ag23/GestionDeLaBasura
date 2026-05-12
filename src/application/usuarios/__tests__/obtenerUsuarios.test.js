@@ -1,4 +1,4 @@
-const obtenerUsuarios = require('../../obtenerUsuarios');
+const obtenerUsuarios = require('../obtenerUsuarios');
 
 describe('obtenerUsuarios use-case', () => {
   test('devuelve usuarios formateados', async () => {

@@ -1,4 +1,4 @@
-const crearUsuario = require('../../crearUsuario');
+const crearUsuario = require('../crearUsuario');
 
 describe('crearUsuario use-case', () => {
   test('crea usuario correctamente', async () => {
