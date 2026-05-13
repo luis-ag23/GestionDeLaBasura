@@ -22,7 +22,7 @@ describe("horarios.controller", () => {
     const resultado = await cargarHorariosParaHome();
 
     expect(resultado).toEqual(horariosFormateadosMock);
-    expect(horariosService.obtenerHorariosFormateados).toHaveBeenCalledTimes(1);
+    expect(horariosFactory.cargarHorariosParaHome).toHaveBeenCalledTimes(1);
   });
   test("debería cargar un horario formateado por código para el home", async () => {
   const horarioFormateadoMock = {
