@@ -1,8 +1,8 @@
-import {
+const {
   cargarYRenderizarReportes,
   enlazarEventosModal,
   enlazarFormulario
-} from "./features/reportes/view/reportes.view.js";
+} = require("./features/reportes/view/reportes.view");
 
 console.log("reportes.js cargado");
 

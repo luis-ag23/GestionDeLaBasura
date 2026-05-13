@@ -58,7 +58,7 @@ function renderizarHorarios(horarios) {
 }
 
 async function cargarYRenderizarHorarios(codigo) {
-  const horarios = await cargarListaParaHome(codigo);
+  const horarios = await obtenerListaHorarios(codigo);
   renderizarHorarios(horarios);
 }
 
