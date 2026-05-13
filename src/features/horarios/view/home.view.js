@@ -1,4 +1,4 @@
-const { cargarListaParaHome } = require("../controller/horarios.controller");
+const { cargarListaParaHome } = require("../controller/horarios.controller.browser");
 
 function renderizarDias(dias) {
   return dias

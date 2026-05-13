@@ -1,15 +1,27 @@
-const horariosFactory = require("../../../bootstrap/horariosFactory");
+let cargarHorariosParaHome, cargarHorarioPorCodigoParaHome;
 
-async function cargarHorariosParaHome() {
-  return horariosFactory.cargarHorariosParaHome();
-}
+if (typeof window !== "undefined") {
+  // En el navegador usamos el adaptador de API (fetch)
+  const { obtenerListaHorarios } = require("../api/horarios.api");
 
-async function cargarHorarioPorCodigoParaHome(codigo) {
-  if (!codigo) {
-    return horariosFactory.cargarHorariosParaHome();
-  }
+  cargarHorariosParaHome = async () => {
+    return obtenerListaHorarios();
+  };
 
-  return horariosFactory.cargarHorarioPorCodigoParaHome(codigo);
+  cargarHorarioPorCodigoParaHome = async (codigo) => {
+    if (!codigo) return obtenerListaHorarios();
+    const lista = await obtenerListaHorarios(codigo);
+    return Array.isArray(lista) ? lista[0] : lista;
+  };
+} else {
+  // En Node usamos la fábrica del backend
+  const horariosFactory = require("../../../bootstrap/horariosFactory");
+
+  cargarHorariosParaHome = async () => horariosFactory.cargarHorariosParaHome();
+  cargarHorarioPorCodigoParaHome = async (codigo) => {
+    if (!codigo) return horariosFactory.cargarHorariosParaHome();
+    return horariosFactory.cargarHorarioPorCodigoParaHome(codigo);
+  };
 }
 
 async function cargarListaParaHome(codigo) {
@@ -19,10 +31,7 @@ async function cargarListaParaHome(codigo) {
 
   const horario = await cargarHorarioPorCodigoParaHome(codigo);
 
-  if (!horario) {
-    return [];
-  }
-
+  if (!horario) return [];
   return [horario];
 }
 

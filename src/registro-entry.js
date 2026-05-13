@@ -1,5 +1,5 @@
 
-import { crearUsuario } from './features/usuarios/api/usuarios.api.js';
+const { crearUsuario } = require('./features/usuarios/api/usuarios.api');
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Pantalla de registro lista y escuchando...");
