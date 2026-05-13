@@ -1,8 +1,8 @@
 // src/features/usuarios/tests/usuarios.service.test.js
 
 const usuariosService = require("../services/usuarios.service");
-const usuariosRepository = require("../repository/usuarios.repository");
-const usuariosPresenter = require("../presenter/usuarios.presenter");
+const usuariosRepository = require("../../../adapters/persistence/pgUsuarioRepository");
+const usuariosPresenter = require("../../../adapters/presenter/jsonUsuarioPresenter");
 const bcrypt = require("bcrypt");
 
 jest.mock("../../../adapters/persistence/pgUsuarioRepository");

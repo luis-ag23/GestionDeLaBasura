@@ -1,6 +1,6 @@
 const reportesService = require("../services/reportes.service");
-const reportesRepository = require("../repository/reportes.repository");
-const reportesPresenter = require("../presenter/reportes.presenter");
+const reportesRepository = require("../../../adapters/persistence/pgReporteRepository");
+const reportesPresenter = require("../../../adapters/presenter/jsonReportePresenter");
 
 jest.mock("../../../adapters/persistence/pgReporteRepository");
 jest.mock("../../../adapters/presenter/jsonReportePresenter");
