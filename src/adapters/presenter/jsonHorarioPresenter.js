@@ -24,6 +24,7 @@ function formatearHorario(horario, diaActual) {
     pasaHoy: diaActual ? pasaHoy(horario.dias, diaActual) : false
   };
 }
+
 function formatearHorarios(horarios, diaActual) {
   return horarios.map((horario) => formatearHorario(horario, diaActual));
 }
@@ -31,9 +32,11 @@ function formatearHorarios(horarios, diaActual) {
 function construirHorarioTexto(horaInicio, horaFin) {
   return `${formatearHora(horaInicio)} - ${formatearHora(horaFin)}`;
 }
+
 function pasaHoy(dias, diaActual) {
   return dias.includes(diaActual);
 }
+
 module.exports = {
   formatearHorario,
   formatearHorarios,
