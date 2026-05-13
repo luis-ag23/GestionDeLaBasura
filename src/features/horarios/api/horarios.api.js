@@ -12,24 +12,17 @@ async function requestJson(path, options = {}) {
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
-    throw new Error(data?.message || data?.error || "No se pudo completar la solicitud de reportes.");
+    throw new Error(data?.message || data?.error || "No se pudo completar la solicitud de horarios.");
   }
 
   return data;
 }
 
-async function obtenerListaReportes() {
-  return requestJson("/reportes");
-}
-
-async function crearReporte(datos) {
-  return requestJson("/reportes", {
-    method: "POST",
-    body: JSON.stringify(datos)
-  });
+async function obtenerListaHorarios(codigo = "") {
+  const query = codigo ? `?codigo=${encodeURIComponent(codigo)}` : "";
+  return requestJson(`/horarios${query}`);
 }
 
 module.exports = {
-  obtenerListaReportes,
-  crearReporte
+  obtenerListaHorarios
 };

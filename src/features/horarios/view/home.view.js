@@ -1,4 +1,4 @@
-const { cargarListaParaHome } = require("../controller/horarios.controller");
+const { obtenerListaHorarios } = require("../api/horarios.api");
 
 function renderizarDias(dias) {
   return dias
@@ -45,7 +45,7 @@ function renderizarHorarios(horarios) {
 }
 
 async function cargarYRenderizarHorarios(codigo) {
-  const horarios = await cargarListaParaHome(codigo);
+  const horarios = await obtenerListaHorarios(codigo);
   renderizarHorarios(horarios);
 }
 

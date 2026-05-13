@@ -1,4 +1,4 @@
-import { obtenerListaUsuarios, crearUsuario } from "../api/usuarios.api.js";
+const { obtenerListaUsuarios, crearUsuario } = require("../api/usuarios.api");
 
 function renderizarUsuario(usuario) {
   return `
@@ -74,7 +74,7 @@ function enlazarFormularioUsuarios() {
   });
 }
 
-export {
+module.exports = {
   cargarYRenderizarUsuarios,
   enlazarFormularioUsuarios
 };

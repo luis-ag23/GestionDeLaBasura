@@ -1,4 +1,4 @@
-import { obtenerListaReportes, crearReporte } from "../api/reportes.api.js";
+const { obtenerListaReportes, crearReporte } = require("../api/reportes.api");
 
 const USUARIO_ID = 2;
 
@@ -204,7 +204,7 @@ function enlazarFormulario() {
   });
 }
 
-export {
+module.exports = {
   renderizarReportes,
   cargarYRenderizarReportes,
   enlazarEventosModal,

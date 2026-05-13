@@ -29,7 +29,7 @@ async function crearUsuario(datos) {
   });
 }
 
-export {
+module.exports = {
   obtenerListaUsuarios,
   crearUsuario
 };
