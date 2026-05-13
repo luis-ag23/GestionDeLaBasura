@@ -41,6 +41,19 @@ function renderizarHorarios(horarios) {
     return;
   }
 
+  // Si la API no devolvió datos, mostramos tarjetas placeholder
+  if (!horarios || horarios.length === 0) {
+    const placeholders = [
+      { titulo: "Distrito 1", subtitulo: "Centro Histórico", tipoLabel: "Domiciliario", turno: "Mañana", horarioTexto: "06:00 - 14:00", dias: ["Lunes","Miércoles","Viernes"], nota: "Sin datos en línea", color: "verde", pasaHoy: false },
+      { titulo: "Distrito 2", subtitulo: "Queru Queru", tipoLabel: "Contenedor", turno: "Tarde", horarioTexto: "16:00 - 00:00", dias: ["Martes","Jueves"], nota: "Sin datos en línea", color: "azul", pasaHoy: false },
+      { titulo: "Distrito 3", subtitulo: "Mayorazgo", tipoLabel: "Domiciliario", turno: "Mañana", horarioTexto: "06:00 - 14:00", dias: ["Lunes","Jueves"], nota: "Sin datos en línea", color: "naranja", pasaHoy: false },
+      { titulo: "Distrito 4", subtitulo: "Hipódromo", tipoLabel: "Contenedor", turno: "Tarde", horarioTexto: "16:00 - 00:00", dias: ["Miércoles","Sábado"], nota: "Sin datos en línea", color: "gris", pasaHoy: false }
+    ];
+
+    grid.innerHTML = placeholders.map(renderizarTarjeta).join("");
+    return;
+  }
+
   grid.innerHTML = horarios.map(renderizarTarjeta).join("");
 }
 
