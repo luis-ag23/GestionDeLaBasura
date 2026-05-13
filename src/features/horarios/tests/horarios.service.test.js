@@ -1,5 +1,5 @@
-const horariosRepository = require("../repository/horarios.repository");
-const horariosPresenter = require("../presenter/horarios.presenter");
+const horariosRepository = require("../../../adapters/persistence/pgHorarioRepository");
+const horariosPresenter = require("../../../adapters/presenter/jsonHorarioPresenter");
 const {
   obtenerHorarios,
   obtenerHorarioPorCodigo,
@@ -9,8 +9,8 @@ const {
   obtenerHorarioFormateadoPorCodigo
 } = require("../service/horarios.service");
 
-jest.mock("../repository/horarios.repository");
-jest.mock("../presenter/horarios.presenter");
+jest.mock("../../../adapters/persistence/pgHorarioRepository");
+jest.mock("../../../adapters/presenter/jsonHorarioPresenter");
 
 beforeEach(() => {
   jest.clearAllMocks();
