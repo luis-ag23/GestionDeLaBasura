@@ -15,8 +15,10 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "parcel --no-cache home/home.html reportes/reportes.html registro/registro.html",
-    "build": "parcel build --no-cache home/home.html reportes/reportes.html registro/registro.html",
+    "start": "npm run dev",
+    "dev": "parcel --no-cache index.html home/home.html reportes/reportes.html registro/registro.html",
+    "backend": "node server.js",
+    "build": "parcel build --no-cache index.html home/home.html reportes/reportes.html registro/registro.html",
     "test": "jest",
     "test-once": "jest --runInBand"
   },

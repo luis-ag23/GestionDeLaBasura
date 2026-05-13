@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/api";
+const API_BASE = process.env.API_BASE_URL || "http://localhost:3000";
+const BASE_URL = `${API_BASE}/api`;
 
 async function requestJson(path, options = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {
