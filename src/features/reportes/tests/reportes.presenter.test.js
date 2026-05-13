@@ -1,4 +1,4 @@
-const reportesPresenter = require("../presenter/reportes.presenter");
+const reportesPresenter = require("../../../adapters/presenter/jsonReportePresenter");
 
 test("debe formatear un reporte correctamente", () => {
   const reporte = {
