@@ -2,8 +2,8 @@ const reportesService = require("../services/reportes.service");
 const reportesRepository = require("../repository/reportes.repository");
 const reportesPresenter = require("../presenter/reportes.presenter");
 
-jest.mock("../repository/reportes.repository");
-jest.mock("../presenter/reportes.presenter");
+jest.mock("../../../adapters/persistence/pgReporteRepository");
+jest.mock("../../../adapters/presenter/jsonReportePresenter");
 
 test("debe obtener y formatear todos los reportes", async () => {
   const reportes = [
