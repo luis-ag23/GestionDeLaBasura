@@ -1,5 +1,5 @@
-const reportesRepository = require("../repository/reportes.repository");
-const reportesPresenter = require("../presenter/reportes.presenter");
+const reportesRepository = require("../../../adapters/persistence/pgReporteRepository");
+const reportesPresenter = require("../../../adapters/presenter/jsonReportePresenter");
 
 async function obtenerReportes() {
 	const reportes = await reportesRepository.getAllReportes();

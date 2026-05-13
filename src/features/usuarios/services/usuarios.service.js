@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const usuariosRepository = require("../repository/usuarios.repository");
-const usuariosPresenter = require("../presenter/usuarios.presenter");
+const usuariosRepository = require("../../../adapters/persistence/pgUsuarioRepository");
+const usuariosPresenter = require("../../../adapters/presenter/jsonUsuarioPresenter");
 
 async function crearUsuario(datos) {
 	if (!datos.password) {
