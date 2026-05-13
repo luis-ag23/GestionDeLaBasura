@@ -1,6 +1,6 @@
 // src/features/usuarios/tests/usuarios.presenter.test.js
 
-const usuariosPresenter = require("../presenter/usuarios.presenter");
+const usuariosPresenter = require("../../../adapters/presenter/jsonUsuarioPresenter");
 
 describe("Usuarios Presenter", () => {
   test("debe formatear un usuario correctamente y ELIMINAR el password_hash", () => {

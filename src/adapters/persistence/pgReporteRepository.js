@@ -1,4 +1,4 @@
-const pool = require("../../../../db");
+const pool = require("../../../db");
 
 async function getAllReportes() {
   const result = await pool.query(`

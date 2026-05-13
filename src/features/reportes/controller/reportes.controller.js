@@ -1,17 +1,15 @@
-const reportesService = require("../services/reportes.service");
+const reportesFactory = require("../../../bootstrap/reportesFactory");
 
 async function obtenerReportes(req, res) {
   try {
     const { usuario_id } = req.query;
 
     if (usuario_id) {
-      const reportes = await reportesService.obtenerReportesPorUsuario(
-        Number(usuario_id)
-      );
+      const reportes = await reportesFactory.obtenerReportesPorUsuario(Number(usuario_id));
       return res.status(200).json(reportes);
     }
 
-    const reportes = await reportesService.obtenerReportes();
+    const reportes = await reportesFactory.obtenerReportes();
     return res.status(200).json(reportes);
   } catch (error) {
     console.error("Error al obtener reportes:", error);
@@ -25,7 +23,7 @@ async function crearReporte(req, res) {
   try {
     const { descripcion, ubicacion, imagen_url, usuario_id } = req.body;
 
-    const nuevoReporte = await reportesService.crearReporte({
+    const nuevoReporte = await reportesFactory.crearReporte({
       descripcion,
       ubicacion,
       imagen_url,
