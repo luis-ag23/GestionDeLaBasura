@@ -1,4 +1,19 @@
 const BASE_URL = "http://localhost:3000/api";
+const horariosPresenter = require("../../../adapters/presenter/jsonHorarioPresenter");
+
+function obtenerDiaActual() {
+  const dias = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+  ];
+
+  return dias[new Date().getDay()];
+}
 
 async function requestJson(path, options = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {
@@ -20,7 +35,8 @@ async function requestJson(path, options = {}) {
 
 async function obtenerListaHorarios(codigo = "") {
   const query = codigo ? `?codigo=${encodeURIComponent(codigo)}` : "";
-  return requestJson(`/horarios${query}`);
+  const horarios = await requestJson(`/horarios${query}`);
+  return horariosPresenter.formatearHorarios(horarios, obtenerDiaActual());
 }
 
 module.exports = {
