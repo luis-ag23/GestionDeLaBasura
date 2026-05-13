@@ -1,5 +1,5 @@
-const horariosRepository = require("../repository/horarios.repository");
-const horariosPresenter = require("../presenter/horarios.presenter");
+const horariosRepository = require("../../../adapters/persistence/pgHorarioRepository");
+const horariosPresenter = require("../../../adapters/presenter/jsonHorarioPresenter");
 async function obtenerHorarios() {
   const horarios = await horariosRepository.getAllHorarios();
   return horarios;
