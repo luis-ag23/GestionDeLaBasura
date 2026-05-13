@@ -1,11 +1,10 @@
+jest.mock("../service/horarios.service");
 const horariosService = require("../service/horarios.service");
 const {
   cargarHorariosParaHome,
   cargarHorarioPorCodigoParaHome,
   cargarListaParaHome
 } = require("../controller/horarios.controller");
-
-jest.mock("../service/horarios.service");
 
 beforeEach(() => {
   jest.clearAllMocks();
