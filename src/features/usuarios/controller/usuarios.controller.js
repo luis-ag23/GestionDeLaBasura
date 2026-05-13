@@ -1,8 +1,8 @@
-const usuariosService = require("../services/usuarios.service");
+const usuariosFactory = require("../../../bootstrap/usuariosFactory");
 
 async function obtenerUsuarios(req, res) {
   try {
-    const usuarios = await usuariosService.obtenerUsuarios();
+    const usuarios = await usuariosFactory.obtenerUsuarios();
     return res.status(200).json(usuarios);
   } catch (error) {
     console.error("Error al obtener usuarios:", error);
@@ -14,17 +14,12 @@ async function crearUsuario(req, res) {
   try {
     const { nombre, correo, password, rol } = req.body;
 
-    const nuevoUsuario = await usuariosService.crearUsuario({
-      nombre,
-      correo,
-      password,
-      rol
-    });
+    const nuevoUsuario = await usuariosFactory.crearUsuario({ nombre, correo, password, rol });
 
     return res.status(201).json(nuevoUsuario);
   } catch (error) {
     console.error("Error al crear usuario:", error);
-    
+
     if (error.message.includes("obligatorio") || error.message.includes("registrado")) {
       return res.status(400).json({ message: error.message });
     }

@@ -1,15 +1,15 @@
-const horariosService = require("../service/horarios.service");
+const horariosFactory = require("../../../bootstrap/horariosFactory");
 
 async function cargarHorariosParaHome() {
-  return horariosService.obtenerHorariosFormateados();
+  return horariosFactory.cargarHorariosParaHome();
 }
 
 async function cargarHorarioPorCodigoParaHome(codigo) {
   if (!codigo) {
-    return horariosService.obtenerHorariosFormateados();
+    return horariosFactory.cargarHorariosParaHome();
   }
 
-  return horariosService.obtenerHorarioFormateadoPorCodigo(codigo);
+  return horariosFactory.cargarHorarioPorCodigoParaHome(codigo);
 }
 
 async function cargarListaParaHome(codigo) {

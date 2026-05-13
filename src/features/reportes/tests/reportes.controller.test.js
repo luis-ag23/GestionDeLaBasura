@@ -1,7 +1,7 @@
 const reportesController = require("../controller/reportes.controller");
-const reportesService = require("../services/reportes.service");
+const reportesFactory = require("../../../bootstrap/reportesFactory");
 
-jest.mock("../services/reportes.service");
+jest.mock("../../../bootstrap/reportesFactory");
 
 describe("reportes.controller", () => {
   let req;
@@ -26,12 +26,12 @@ afterEach(() => {
   test("debe obtener todos los reportes si no se envía usuario_id", async () => {
     const reportes = [{ id: 1, descripcion: "Basura", usuario_id: 2 }];
 
-    reportesService.obtenerReportes.mockResolvedValue(reportes);
+    reportesFactory.obtenerReportes.mockResolvedValue(reportes);
 
     await reportesController.obtenerReportes(req, res);
 
-    expect(reportesService.obtenerReportes).toHaveBeenCalled();
-    expect(reportesService.obtenerReportesPorUsuario).not.toHaveBeenCalled();
+    expect(reportesFactory.obtenerReportes).toHaveBeenCalled();
+    expect(reportesFactory.obtenerReportesPorUsuario).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(reportes);
   });
@@ -40,18 +40,18 @@ afterEach(() => {
     const reportes = [{ id: 1, descripcion: "Basura", usuario_id: 2 }];
 
     req.query.usuario_id = "2";
-    reportesService.obtenerReportesPorUsuario.mockResolvedValue(reportes);
+    reportesFactory.obtenerReportesPorUsuario.mockResolvedValue(reportes);
 
     await reportesController.obtenerReportes(req, res);
 
-    expect(reportesService.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
-    expect(reportesService.obtenerReportes).not.toHaveBeenCalled();
+    expect(reportesFactory.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
+    expect(reportesFactory.obtenerReportes).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(reportes);
   });
 
   test("debe responder con 500 si ocurre un error al obtener reportes", async () => {
-    reportesService.obtenerReportes.mockRejectedValue(new Error("Error interno"));
+    reportesFactory.obtenerReportes.mockRejectedValue(new Error("Error interno"));
 
     await reportesController.obtenerReportes(req, res);
 
@@ -64,22 +64,22 @@ afterEach(() => {
 
     test("debe responder con una lista vacía si no hay reportes por usuario", async () => {
     req.query.usuario_id = "2";
-    reportesService.obtenerReportesPorUsuario.mockResolvedValue([]);
+    reportesFactory.obtenerReportesPorUsuario.mockResolvedValue([]);
 
     await reportesController.obtenerReportes(req, res);
 
-    expect(reportesService.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
+    expect(reportesFactory.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith([]);
     });
 
     test("debe convertir usuario_id a número antes de consultar reportes por usuario", async () => {
     req.query.usuario_id = "2";
-    reportesService.obtenerReportesPorUsuario.mockResolvedValue([]);
+    reportesFactory.obtenerReportesPorUsuario.mockResolvedValue([]);
 
     await reportesController.obtenerReportes(req, res);
 
-    expect(reportesService.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
+    expect(reportesFactory.obtenerReportesPorUsuario).toHaveBeenCalledWith(2);
     });
 
 });
