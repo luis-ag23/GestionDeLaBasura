@@ -103,7 +103,7 @@ function abrirModal() {
     return;
   }
 
-  modal.classList.remove("hidden");
+  modal.classList.remove("modal--hidden");
 }
 
 function cerrarModal() {
@@ -114,7 +114,7 @@ function cerrarModal() {
     return;
   }
 
-  modal.classList.add("hidden");
+  modal.classList.add("modal--hidden");
 }
 
 function limpiarFormulario() {
