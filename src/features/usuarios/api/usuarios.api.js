@@ -30,7 +30,18 @@ async function crearUsuario(datos) {
   });
 }
 
+/**
+ * @param {Object} credenciales 
+ */
+async function autenticarUsuario(credenciales) {
+  return requestJson("/usuarios/login", {
+    method: "POST",
+    body: JSON.stringify(credenciales)
+  });
+}
+
 module.exports = {
   obtenerListaUsuarios,
-  crearUsuario
+  crearUsuario,
+  autenticarUsuario
 };
