@@ -26,6 +26,7 @@
         <nav class="navbar__links">
             <a href="../login/login.html" class="navbar__link navbar__link--active">Ingresar</a>
             <a href="#horarios" class="navbar__link">Horarios</a>
+            <a href="#mapa" class="navbar__link">Mapa</a>
             <a href="#clima"    class="navbar__link">Clima</a>
             <a href="../registro/registro.html" class="navbar__link" >Registrarse</a>
             <a href="../reportes/reportes.html" class="btn btn--reportes">
@@ -122,6 +123,49 @@
                 <strong>EMSA</strong> al <a href="tel:+5914492059">4-492059</a> (interno 18).
                 Los horarios son: turno mañana <strong>06:00–14:00</strong> y turno tarde
                 <strong>16:00–00:00</strong>.
+            </div>
+        </div>
+    </section>
+
+    <section class="mapa" id="mapa">
+        <div class="mapa__header">
+            <h2 class="mapa__title">🗺️ Mapa real de tu zona</h2>
+            <p class="mapa__subtitle">
+                Selecciona un distrito y el mapa se centrará en su ubicación real en Cochabamba.
+                También puedes abrir la ruta directa en Google Maps.
+            </p>
+        </div>
+
+        <div class="mapa__panel">
+            <div class="mapa__frame-wrap">
+                <iframe
+                    id="mapa-zona"
+                    class="mapa__frame"
+                    title="Mapa de Cochabamba"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-66.176%2C-17.398%2C-66.138%2C-17.362&layer=mapnik&marker=-17.38%2C-66.157"
+                ></iframe>
+            </div>
+
+            <div class="mapa__info">
+                <p class="mapa__eyebrow">Zona seleccionada</p>
+                <h3 class="mapa__zona" id="mapa-zona-nombre">Cochabamba Centro</h3>
+                <p class="mapa__texto" id="mapa-zona-descripcion">
+                    El mapa se actualizará con la zona que elijas en el filtro de distritos.
+                </p>
+                <a
+                    class="btn btn--hero mapa__ruta"
+                    id="mapa-ruta"
+                    href="https://www.google.com/maps/dir/?api=1&destination=-17.380%2C-66.157&travelmode=driving"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Abrir ruta en Google Maps →
+                </a>
+                <p class="mapa__nota">
+                    El mapa usa OpenStreetMap y la ruta abre Google Maps con navegación real.
+                </p>
             </div>
         </div>
     </section>
