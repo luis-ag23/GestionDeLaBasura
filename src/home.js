@@ -1,9 +1,11 @@
 const { cargarYRenderizarHorarios, enlazarFiltroDistrito } = require("./features/horarios/view/home.view");
 const { enlazarMapaZonas } = require("./features/mapa/view/homeMapa.view");
+const { enlazarClimaHome } = require("./features/clima/view/homeClima.view");
 
 async function iniciarHome() {
   try {
     console.log("Iniciando home...");
+    enlazarClimaHome();
     enlazarMapaZonas();
     await cargarYRenderizarHorarios("");
     enlazarFiltroDistrito();
