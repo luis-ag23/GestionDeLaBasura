@@ -1,4 +1,4 @@
-import { obtenerListaReportes, crearReporte } from "../api/reportes.api.js";
+const { obtenerListaReportes, crearReporte } = require("../api/reportes.api");
 
 const USUARIO_ID = 2;
 
@@ -103,7 +103,7 @@ function abrirModal() {
     return;
   }
 
-  modal.classList.remove("hidden");
+  modal.classList.remove("modal--hidden");
 }
 
 function cerrarModal() {
@@ -114,7 +114,7 @@ function cerrarModal() {
     return;
   }
 
-  modal.classList.add("hidden");
+  modal.classList.add("modal--hidden");
 }
 
 function limpiarFormulario() {
@@ -204,7 +204,7 @@ function enlazarFormulario() {
   });
 }
 
-export {
+module.exports = {
   renderizarReportes,
   cargarYRenderizarReportes,
   enlazarEventosModal,

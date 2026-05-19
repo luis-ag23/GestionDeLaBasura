@@ -17,26 +17,37 @@ function obtenerDiaActual() {
 }
 
 async function requestJson(path, options = {}) {
-  const response = await fetch(`${BASE_URL}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {})
-    },
-    ...options
-  });
+  try {
+    const response = await fetch(`${BASE_URL}${path}`, {
+      headers: {
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+      },
+      ...options
+    });
 
-  const data = await response.json().catch(() => null);
+    const data = await response.json().catch(() => null);
 
-  if (!response.ok) {
-    throw new Error(data?.message || data?.error || "No se pudo completar la solicitud de horarios.");
+    if (!response.ok) {
+      throw new Error(data?.message || data?.error || "No se pudo completar la solicitud de horarios.");
+    }
+
+    return data;
+  } catch (err) {
+    // No queremos que un error de red detenga la inicialización de la UI.
+    // Logueamos para debugging y devolvemos null para que el llamador lo maneje.
+    console.error("horarios.api requestJson error:", err);
+    return null;
   }
-
-  return data;
 }
 
 async function obtenerListaHorarios(codigo = "") {
   const query = codigo ? `?codigo=${encodeURIComponent(codigo)}` : "";
   const horarios = await requestJson(`/horarios${query}`);
+  if (!horarios) {
+    return [];
+  }
+
   return horariosPresenter.formatearHorarios(horarios, obtenerDiaActual());
 }
 

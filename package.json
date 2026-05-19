@@ -16,9 +16,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "parcel --no-cache home/home.html reportes/reportes.html registro/registro.html",
+    "dev": "parcel --no-cache index.html home/home.html reportes/reportes.html registro/registro.html",
     "backend": "node server.js",
-    "build": "parcel build --no-cache home/home.html reportes/reportes.html registro/registro.html",
+    "build": "parcel build --no-cache index.html home/home.html reportes/reportes.html registro/registro.html",
     "test": "jest",
     "test-once": "jest --runInBand"
   },
@@ -39,6 +39,7 @@
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.20.0"
   }
 }

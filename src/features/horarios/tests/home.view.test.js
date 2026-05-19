@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 
 const homeView = require("../view/home.view");
-const horariosController = require("../controller/horarios.controller");
+const horariosApi = require("../api/horarios.api");
 
 const {
   renderizarHorarios,
@@ -9,7 +9,7 @@ const {
   enlazarFiltroDistrito
 } = homeView;
 
-jest.mock("../controller/horarios.controller");
+jest.mock("../api/horarios.api");
 
 describe("home.view", () => {
   beforeEach(() => {
@@ -68,13 +68,13 @@ describe("home.view", () => {
     }
   ];
 
-  horariosController.cargarListaParaHome.mockResolvedValue(horariosMock);
+  horariosApi.obtenerListaHorarios.mockResolvedValue(horariosMock);
 
   await cargarYRenderizarHorarios("");
 
   const tarjetas = document.querySelectorAll(".zona-card");
   expect(tarjetas.length).toBe(1);
-  expect(horariosController.cargarListaParaHome).toHaveBeenCalledWith("");
+  expect(horariosApi.obtenerListaHorarios).toHaveBeenCalledWith("");
 });
 test("debería cargar y renderizar horarios cuando cambia el select de distrito", () => {
   document.body.innerHTML = `
@@ -100,7 +100,7 @@ test("debería cargar y renderizar horarios cuando cambia el select de distrito"
     }
   ];
 
-  horariosController.cargarListaParaHome.mockResolvedValue(horariosMock);
+  horariosApi.obtenerListaHorarios.mockResolvedValue(horariosMock);
 
   // Ejecutamos la función que enlaza el evento
   enlazarFiltroDistrito();
@@ -110,6 +110,6 @@ test("debería cargar y renderizar horarios cuando cambia el select de distrito"
   select.value = "d2";
   select.dispatchEvent(new Event("change"));
 
-  expect(horariosController.cargarListaParaHome).toHaveBeenCalledWith("d2");
+  expect(horariosApi.obtenerListaHorarios).toHaveBeenCalledWith("d2");
 });
 });
