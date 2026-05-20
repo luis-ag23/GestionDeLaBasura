@@ -1,4 +1,4 @@
-async function editarReporte({ reporteRepo, reportePresenter }, id, datos) {
+async function editarReporte({ reporteRepo }, id, datos) {
   if (!id) {
     throw new Error("El id del reporte es obligatorio.");
   }
@@ -28,7 +28,7 @@ async function editarReporte({ reporteRepo, reportePresenter }, id, datos) {
     usuario_id: datos.usuario_id
   });
 
-  return reportePresenter.toJson(reporteActualizado);
+  return reporteActualizado;
 }
 
 module.exports = editarReporte;
