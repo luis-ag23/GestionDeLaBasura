@@ -156,8 +156,10 @@ function abrirModal() {
     return;
   }
 
+  modal.classList.remove("hidden");
   modal.classList.remove("modal--hidden");
 }
+
 
 function abrirModalCrear() {
   limpiarFormulario();
@@ -226,6 +228,7 @@ function cerrarModal() {
   }
 
   modal.classList.add("hidden");
+  modal.classList.add("modal--hidden");
   limpiarFormulario();
 }
 
