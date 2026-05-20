@@ -27,7 +27,7 @@ function renderizarReporte(reporte) {
         </p>
 
         ${
-          reporte.imagen_url
+          esImagenValida(reporte.imagen_url)
             ? `
               <div class="reporte-card__imagen-wrapper">
                 <img
@@ -72,6 +72,17 @@ function formatearFecha(fecha) {
   }
 
   return fechaObj.toLocaleString("es-BO");
+}
+
+function esImagenValida(imagenUrl) {
+  if (!imagenUrl) {
+    return false;
+  }
+
+  return (
+    imagenUrl.startsWith("http://") ||
+    imagenUrl.startsWith("https://")
+  );
 }
 
 function renderizarReportes(reportes) {
