@@ -13,7 +13,11 @@ async function requestJson(path, options = {}) {
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
-    throw new Error(data?.message || data?.error || "No se pudo completar la solicitud de reportes.");
+    throw new Error(
+      data?.message ||
+        data?.error ||
+        "No se pudo completar la solicitud de reportes."
+    );
   }
 
   return data;
@@ -30,7 +34,15 @@ async function crearReporte(datos) {
   });
 }
 
+async function editarReporte(id, datos) {
+  return requestJson(`/reportes/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(datos)
+  });
+}
+
 module.exports = {
   obtenerListaReportes,
-  crearReporte
+  crearReporte,
+  editarReporte
 };

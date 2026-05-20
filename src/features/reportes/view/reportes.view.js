@@ -1,4 +1,8 @@
-const { obtenerListaReportes, crearReporte } = require("../api/reportes.api");
+const {
+  obtenerListaReportes,
+  crearReporte,
+  editarReporte
+} = require("../api/reportes.api");
 
 const USUARIO_ID = 2;
 
@@ -7,18 +11,23 @@ function renderizarReporte(reporte) {
     <article class="reporte-card">
       <div class="reporte-card__contenido">
         <h3 class="reporte-card__titulo">Reporte #${reporte.id}</h3>
+
         <p class="reporte-card__descripcion">${reporte.descripcion}</p>
+
         <p class="reporte-card__ubicacion">
           <strong>Ubicación:</strong> ${reporte.ubicacion}
         </p>
+
         <p class="reporte-card__estado">
           <strong>Estado:</strong> ${reporte.estado}
         </p>
+
         <p class="reporte-card__fecha">
           <strong>Fecha:</strong> ${formatearFecha(reporte.created_at)}
         </p>
+
         ${
-          reporte.imagen_url
+          esImagenValida(reporte.imagen_url)
             ? `
               <div class="reporte-card__imagen-wrapper">
                 <img
@@ -30,6 +39,14 @@ function renderizarReporte(reporte) {
             `
             : ""
         }
+
+        <button
+          type="button"
+          class="btn-editar-reporte"
+          data-id="${reporte.id}"
+        >
+          Editar
+        </button>
       </div>
     </article>
   `;
@@ -57,6 +74,17 @@ function formatearFecha(fecha) {
   return fechaObj.toLocaleString("es-BO");
 }
 
+function esImagenValida(imagenUrl) {
+  if (!imagenUrl) {
+    return false;
+  }
+
+  return (
+    imagenUrl.startsWith("http://") ||
+    imagenUrl.startsWith("https://")
+  );
+}
+
 function renderizarReportes(reportes) {
   const contenedor = document.getElementById("reportes-lista");
 
@@ -71,11 +99,35 @@ function renderizarReportes(reportes) {
   }
 
   contenedor.innerHTML = reportes.map(renderizarReporte).join("");
+
+  enlazarBotonesEditar(reportes);
+}
+
+function enlazarBotonesEditar(reportes) {
+  const botonesEditar = document.querySelectorAll(".btn-editar-reporte");
+
+  botonesEditar.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      const reporteId = Number(boton.dataset.id);
+
+      const reporteSeleccionado = reportes.find(
+        (reporte) => Number(reporte.id) === reporteId
+      );
+
+      if (!reporteSeleccionado) {
+        console.error("No se encontró el reporte seleccionado");
+        return;
+      }
+
+      abrirModalEditar(reporteSeleccionado);
+    });
+  });
 }
 
 async function cargarYRenderizarReportes() {
   try {
     const reportes = await obtenerListaReportes();
+
     const misReportes = reportes.filter(
       (reporte) => Number(reporte.usuario_id) === USUARIO_ID
     );
@@ -85,6 +137,7 @@ async function cargarYRenderizarReportes() {
     console.error("Error al cargar reportes:", error);
 
     const contenedor = document.getElementById("reportes-lista");
+
     if (contenedor) {
       contenedor.innerHTML = `
         <div class="reportes-empty">
@@ -106,6 +159,64 @@ function abrirModal() {
   modal.classList.remove("modal--hidden");
 }
 
+function abrirModalCrear() {
+  limpiarFormulario();
+
+  const modalTitle = document.getElementById("modal-title");
+  const btnGuardar = document.getElementById("btn-guardar");
+  const reporteIdInput = document.getElementById("reporte_id");
+
+  if (modalTitle) {
+    modalTitle.textContent = "Nuevo reporte";
+  }
+
+  if (btnGuardar) {
+    btnGuardar.textContent = "Guardar";
+  }
+
+  if (reporteIdInput) {
+    reporteIdInput.value = "";
+  }
+
+  abrirModal();
+}
+
+function abrirModalEditar(reporte) {
+  const modalTitle = document.getElementById("modal-title");
+  const btnGuardar = document.getElementById("btn-guardar");
+
+  const reporteIdInput = document.getElementById("reporte_id");
+  const descripcionInput = document.getElementById("descripcion");
+  const ubicacionInput = document.getElementById("ubicacion");
+  const imagenUrlInput = document.getElementById("imagen_url");
+
+  if (modalTitle) {
+    modalTitle.textContent = "Editar reporte";
+  }
+
+  if (btnGuardar) {
+    btnGuardar.textContent = "Actualizar";
+  }
+
+  if (reporteIdInput) {
+    reporteIdInput.value = reporte.id;
+  }
+
+  if (descripcionInput) {
+    descripcionInput.value = reporte.descripcion || "";
+  }
+
+  if (ubicacionInput) {
+    ubicacionInput.value = reporte.ubicacion || "";
+  }
+
+  if (imagenUrlInput) {
+    imagenUrlInput.value = reporte.imagen_url || "";
+  }
+
+  abrirModal();
+}
+
 function cerrarModal() {
   const modal = document.getElementById("modal");
 
@@ -114,11 +225,13 @@ function cerrarModal() {
     return;
   }
 
-  modal.classList.add("modal--hidden");
+  modal.classList.add("hidden");
+  limpiarFormulario();
 }
 
 function limpiarFormulario() {
   const form = document.getElementById("form-reporte");
+  const reporteIdInput = document.getElementById("reporte_id");
 
   if (!form) {
     console.error("No existe #form-reporte");
@@ -126,6 +239,10 @@ function limpiarFormulario() {
   }
 
   form.reset();
+
+  if (reporteIdInput) {
+    reporteIdInput.value = "";
+  }
 }
 
 function enlazarEventosModal() {
@@ -142,7 +259,7 @@ function enlazarEventosModal() {
 
   btnAgregar.addEventListener("click", () => {
     console.log("click en Agregar reporte");
-    abrirModal();
+    abrirModalCrear();
   });
 
   if (btnCerrar) {
@@ -165,6 +282,16 @@ function obtenerDatosFormulario() {
     imagen_url: imagenUrl || null,
     usuario_id: USUARIO_ID
   };
+}
+
+function obtenerReporteIdFormulario() {
+  const reporteIdInput = document.getElementById("reporte_id");
+
+  if (!reporteIdInput || !reporteIdInput.value) {
+    return null;
+  }
+
+  return Number(reporteIdInput.value);
 }
 
 function validarFormulario(datos) {
@@ -190,16 +317,22 @@ function enlazarFormulario() {
 
     try {
       const datos = obtenerDatosFormulario();
+      const reporteId = obtenerReporteIdFormulario();
+
       validarFormulario(datos);
 
-      await crearReporte(datos);
+      if (reporteId) {
+        await editarReporte(reporteId, datos);
+      } else {
+        await crearReporte(datos);
+      }
 
       cerrarModal();
       limpiarFormulario();
       await cargarYRenderizarReportes();
     } catch (error) {
-      console.error("Error al crear reporte:", error);
-      alert(error.message || "No se pudo crear el reporte.");
+      console.error("Error al guardar reporte:", error);
+      alert(error.message || "No se pudo guardar el reporte.");
     }
   });
 }
@@ -210,5 +343,7 @@ module.exports = {
   enlazarEventosModal,
   enlazarFormulario,
   abrirModal,
+  abrirModalCrear,
+  abrirModalEditar,
   cerrarModal
 };
