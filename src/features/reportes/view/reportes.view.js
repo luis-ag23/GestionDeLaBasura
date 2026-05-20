@@ -156,7 +156,7 @@ function abrirModal() {
     return;
   }
 
-  modal.classList.remove("hidden");
+  modal.classList.remove("modal--hidden");
 }
 
 function abrirModalCrear() {

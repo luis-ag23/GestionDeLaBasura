@@ -13,7 +13,7 @@
 
       <h1 class="reportes__title">Tus reportes</h1>
 
-      <button id="btn-agregar-reporte" class="btn-primary">
+      <button id="btn-agregar-reporte" class="btn btn--primary">
         Agregar reporte
       </button>
 
@@ -55,7 +55,7 @@
     <div class="modal__content">
       <h2 id="modal-title">Nuevo reporte</h2>
 
-      <form id="form-reporte">
+      <form id="form-reporte" class="form">
 
         <input
           type="hidden"
@@ -63,6 +63,7 @@
         />
 
         <input
+          class="form__input"
           type="text"
           id="descripcion"
           placeholder="Descripción"
@@ -70,6 +71,7 @@
         />
 
         <input
+          class="form__input"
           type="text"
           id="ubicacion"
           placeholder="Ubicación"
@@ -77,12 +79,14 @@
         />
 
         <input
+          class="form__input"
           type="text"
           id="imagen_url"
           placeholder="URL imagen (opcional)"
         />
 
         <input
+          class="form__input"
           type="number"
           id="usuario_id"
           placeholder="ID Usuario"
@@ -98,6 +102,11 @@
       <button type="button" id="btn-cerrar">
         Cerrar
       </button>
+        <button type="submit" class="btn btn--submit">Guardar</button>
+
+      </form>
+
+      <button id="btn-cerrar" class="btn btn--danger">Cerrar</button>
     </div>
   </div>
 
