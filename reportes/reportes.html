@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mis Reportes</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
 
@@ -23,44 +23,13 @@
     </div>
   </main>
 
-  <template id="template-reporte">
-    <article class="reporte-card">
-      <h3 class="reporte-card__descripcion"></h3>
-
-      <p>
-        <strong>Ubicación:</strong>
-        <span class="reporte-card__ubicacion"></span>
-      </p>
-
-      <p>
-        <strong>ID Usuario:</strong>
-        <span class="reporte-card__usuario"></span>
-      </p>
-
-      <img
-        class="reporte-card__imagen"
-        src=""
-        alt="Imagen del reporte"
-      />
-
-      <button type="button" class="btn-editar-reporte">
-        Editar
-      </button>
-    </article>
-  </template>
-
-  <div id="modal" class="modal hidden">
+  <div id="modal" class="modal modal--hidden">
     <div class="modal__overlay" id="overlay"></div>
 
     <div class="modal__content">
-      <h2 id="modal-title">Nuevo reporte</h2>
+      <h2 class="modal__title">Nuevo reporte</h2>
 
       <form id="form-reporte" class="form">
-
-        <input
-          type="hidden"
-          id="reporte_id"
-        />
 
         <input
           class="form__input"
@@ -93,15 +62,6 @@
           required
         />
 
-        <button type="submit" id="btn-guardar">
-          Guardar
-        </button>
-
-      </form>
-
-      <button type="button" id="btn-cerrar">
-        Cerrar
-      </button>
         <button type="submit" class="btn btn--submit">Guardar</button>
 
       </form>
