@@ -1,8 +1,20 @@
+:root {
+  --primary: #2ecc71;
+  --primary-dark: #27ae60;
+  --danger: #e74c3c;
+  --warning: #f39c12;
+  --warning-dark: #d68910;
+  --bg: #f5f7fa;
+  --text: #2c3e50;
+  --border: #e0e0e0;
+  --white: #ffffff;
+}
+
 body {
   margin: 0;
   font-family: "Sora", sans-serif;
-  background: #f5f7fa;
-  color: #2c3e50;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .reportes {
@@ -10,22 +22,27 @@ body {
   justify-content: center;
   padding: 40px 20px;
 }
+
 .reportes__container {
   width: 100%;
   max-width: 900px;
 }
+
 .reportes__title {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 20px;
 }
+
 .reportes__lista {
   display: grid;
   gap: 16px;
   margin-top: 20px;
 }
 
-.btn {
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -47,8 +64,9 @@ body {
   margin-top: 10px;
   padding: 10px;
 }
-.btn--submit:hover {
-  background: #27ae60;
+
+.btn-primary:hover {
+  background: var(--primary-dark);
 }
 .btn--danger {
   background: #e74c3c;
@@ -60,50 +78,54 @@ body {
 }
 
 .reporte-card {
-  background: #ffffff;
+  background: var(--white);
   border-radius: 12px;
   padding: 16px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
-.reporte-card__contenido {
-  display: grid;
-  gap: 8px;
-}
-.reporte-card__titulo {
-  margin: 0;
+
+.reporte-card h3 {
+  margin: 0 0 8px;
   font-size: 18px;
 }
-.reporte-card__descripcion, .reporte-card__ubicacion, .reporte-card__estado, .reporte-card__fecha {
-  margin: 0;
+
+.reporte-card p {
+  margin: 4px 0;
   font-size: 14px;
 }
-.reporte-card__imagen-wrapper {
-  margin-top: 8px;
-  overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-.reporte-card__imagen {
-  display: block;
-  width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-}
+
 .reporte-card strong {
   font-weight: 600;
 }
 
-.reportes-empty {
-  background: #ffffff;
-  border: 1px dashed #e0e0e0;
-  border-radius: 12px;
-  padding: 20px;
-  color: #6b7c8f;
-  text-align: center;
+.reporte-card__imagen {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 12px;
+  display: block;
 }
-.reportes-empty p {
-  margin: 0;
+
+.reporte-card__imagen[src=""] {
+  display: none;
+}
+
+.btn-editar-reporte {
+  margin-top: 14px;
+  background: var(--warning);
+  color: var(--white);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-editar-reporte:hover {
+  background: var(--warning-dark);
 }
 
 .modal {
@@ -113,18 +135,21 @@ body {
   justify-content: center;
   align-items: center;
 }
-.modal--hidden {
+
+.modal.hidden {
   display: none;
 }
+
 .modal__overlay {
   position: absolute;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
+
 .modal__content {
   position: relative;
-  background: #ffffff;
+  background: var(--white);
   padding: 24px;
   border-radius: 12px;
   width: 100%;
@@ -139,20 +164,71 @@ body {
   font-size: 22px;
 }
 
-.form {
+.modal__content h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+#form-reporte {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.form__input {
+
+#form-reporte input,
+#form-reporte textarea {
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border);
   font-size: 14px;
+  font-family: inherit;
 }
-.form__input:focus {
+
+#form-reporte input:focus,
+#form-reporte textarea:focus {
   outline: none;
-  border-color: #2ecc71;
+  border-color: var(--primary);
+}
+
+#form-reporte button {
+  margin-top: 10px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#form-reporte button:hover {
+  background: var(--primary-dark);
+}
+
+#btn-cerrar {
+  background: var(--danger);
+  color: var(--white);
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#btn-cerrar:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .reportes {
+    padding: 24px 14px;
+  }
+  .reportes__title {
+    font-size: 24px;
+  }
+  .modal__content {
+    max-width: 90%;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

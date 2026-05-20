@@ -5,14 +5,19 @@ async function obtenerReportes(req, res) {
     const { usuario_id } = req.query;
 
     if (usuario_id) {
-      const reportes = await reportesFactory.obtenerReportesPorUsuario(Number(usuario_id));
+      const reportes = await reportesFactory.obtenerReportesPorUsuario(
+        Number(usuario_id)
+      );
+
       return res.status(200).json(reportes);
     }
 
     const reportes = await reportesFactory.obtenerReportes();
+
     return res.status(200).json(reportes);
   } catch (error) {
     console.error("Error al obtener reportes:", error);
+
     return res.status(500).json({
       message: "No se pudieron obtener los reportes."
     });
@@ -39,7 +44,9 @@ async function crearReporte(req, res) {
       error.message === "La ubicación es obligatoria." ||
       error.message === "El usuario_id es obligatorio."
     ) {
-      return res.status(400).json({ message: error.message });
+      return res.status(400).json({
+        message: error.message
+      });
     }
 
     return res.status(500).json({
@@ -48,7 +55,46 @@ async function crearReporte(req, res) {
   }
 }
 
+async function editarReporte(req, res) {
+  try {
+    const { id } = req.params;
+    const { descripcion, ubicacion, imagen_url, usuario_id } = req.body;
+
+    const reporteActualizado = await reportesFactory.editarReporte(Number(id), {
+      descripcion,
+      ubicacion,
+      imagen_url,
+      usuario_id
+    });
+
+    return res.status(200).json(reporteActualizado);
+  } catch (error) {
+    console.error("Error al editar reporte:", error);
+
+    if (error.message === "Reporte no encontrado.") {
+      return res.status(404).json({
+        message: error.message
+      });
+    }
+
+    if (
+      error.message === "La descripción es obligatoria." ||
+      error.message === "La ubicación es obligatoria." ||
+      error.message === "El usuario_id es obligatorio."
+    ) {
+      return res.status(400).json({
+        message: error.message
+      });
+    }
+
+    return res.status(500).json({
+      message: "No se pudo editar el reporte."
+    });
+  }
+}
+
 module.exports = {
   obtenerReportes,
-  crearReporte
+  crearReporte,
+  editarReporte
 };
